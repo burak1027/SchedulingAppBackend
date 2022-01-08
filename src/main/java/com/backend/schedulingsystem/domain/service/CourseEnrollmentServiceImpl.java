@@ -39,7 +39,7 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
 
     @Override
     public void reScheduleCourse(CoursesTaken coursesTaken) {
-        
+
     }
 
     @Override

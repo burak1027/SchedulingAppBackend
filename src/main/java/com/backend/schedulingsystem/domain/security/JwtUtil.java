@@ -25,12 +25,7 @@ public class JwtUtil {
         this.secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    /**
-     * Create JWT string given username and roles.
-     *
-     * @param username
-     * @return jwt string
-     */
+
     public String createToken(String username, String role) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put(ROLES_KEY, role);
@@ -44,12 +39,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    /**
-     * Validate the JWT String
-     *
-     * @param token JWT string
-     * @return true if valid, false otherwise
-     */
+
     public boolean isValidToken(String token) {
         try {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
@@ -59,23 +49,13 @@ public class JwtUtil {
         }
     }
 
-    /**
-     * Get the username from the token string
-     *
-     * @param token jwt
-     * @return username
-     */
+
     public String getUsername(String token) {
         return Jwts.parser().setSigningKey(secretKey)
                 .parseClaimsJws(token).getBody().getSubject();
     }
 
-    /**
-     * Get the roles from the token string
-     *
-     * @param token jwt
-     * @return username
-     */
+
 //    public List<GrantedAuthority> getRoles(String token) {
 //        List<Map<String, String>>  roleClaims = Jwts.parser().setSigningKey(secretKey)
 //                .parseClaimsJws(token).getBody().get(ROLES_KEY, List.class);
