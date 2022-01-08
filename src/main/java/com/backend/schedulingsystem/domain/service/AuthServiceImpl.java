@@ -94,8 +94,9 @@ public class AuthServiceImpl implements AuthService {
     public Optional<Student> signupStudent(String name,String surname, String email, String password) {
 
         LOGGER.info("New student attempting to sign up");
-        Optional<Student>  user = Optional.of(studentRepository.findStudentByEmail(email));
-        if (user==null) {
+        Optional<Student>  user = Optional.ofNullable((studentRepository.findStudentByEmail(email)));
+        System.out.println(user.toString());
+        if (!user.isPresent()) {
             studentRepository.save(new Student(name,surname,email,password,false));
              user = Optional.of(studentRepository.findStudentByEmail(email));
 
@@ -106,8 +107,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Optional<Instructor> signupInstructor(String name,String surname, String email, String password) {
         LOGGER.info("New student attempting to sign up");
-        Optional<Instructor>  user = Optional.of(instructorRepository.findInstructorByEmail(email));
-        if (user==null) {
+        Optional<Instructor>  user = Optional.ofNullable((instructorRepository.findInstructorByEmail(email)));
+        if (!user.isPresent()) {
             studentRepository.save(new Student(name,surname,email,password,false));
             user = Optional.of(instructorRepository.findInstructorByEmail(email));
 

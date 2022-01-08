@@ -97,7 +97,7 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("STUDENT");
+            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("INSTRUCTOR");
 
             http.addFilterBefore(new JwtTokenFilter(null,instructorUserDetailsService), UsernamePasswordAuthenticationFilter.class);
         }
