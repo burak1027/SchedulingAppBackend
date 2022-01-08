@@ -37,6 +37,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public StudentDto getStudentById(long id) {
         Student student = studentRepository.findStudentById(id);
+        System.out.println("STUDENT is "+student);
         return UserMapper.<StudentDto>entityToDto(student,new StudentDto());
     }
     @Transactional(readOnly = true)
