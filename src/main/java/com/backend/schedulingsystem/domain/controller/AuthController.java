@@ -1,5 +1,6 @@
 package com.backend.schedulingsystem.domain.controller;
 
+import com.backend.schedulingsystem.domain.email.EmailSenderService;
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
 import com.backend.schedulingsystem.domain.model.entity.Student;
@@ -17,11 +18,17 @@ import java.util.Optional;
 public class AuthController {
     @Autowired
     AuthService authService;
+    @Autowired
+    EmailSenderService emailSenderService;
     @PostMapping("/student-signin")
     @ResponseBody
     public String signinStudent(@RequestParam("email")String email, @RequestParam("password") String password) {
         System.out.println("Inside controller");
-        return authService.signinStudent(email,password).get();
+        String rtn = authService.signinStudent(email,password).get();
+        if(!rtn.isEmpty()){
+            emailSenderService.sendEmail("bburakk.1999@gmail.com","I think I did it :D","java email");
+        }
+        return rtn ;
     }
     @PostMapping("/instructor-signin")
     @ResponseBody
