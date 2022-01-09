@@ -19,15 +19,15 @@ public class AuthController {
     AuthService authService;
     @PostMapping("/student-signin")
     @ResponseBody
-    public Optional<String> signinStudent(@RequestParam("email")String email, @RequestParam("password") String password) {
+    public String signinStudent(@RequestParam("email")String email, @RequestParam("password") String password) {
         System.out.println("Inside controller");
-        return authService.signinStudent(email,password);
+        return authService.signinStudent(email,password).get();
     }
     @PostMapping("/instructor-signin")
     @ResponseBody
-    public Optional<String> signinInstructor(@RequestParam("email")String email, @RequestParam("password") String password) {
+    public String signinInstructor(@RequestParam("email")String email, @RequestParam("password") String password) {
         System.out.println("Inside controller");
-        return authService.signinInstructor(email,password);
+        return authService.signinInstructor(email,password).get();
     }
     @PostMapping("/student-signup")
     public Optional<Student> signup(@RequestBody  StudentDto studentDto){
