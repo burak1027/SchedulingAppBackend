@@ -1,6 +1,7 @@
 package com.backend.schedulingsystem.domain.service;
 
 import com.backend.schedulingsystem.domain.model.entity.Course;
+import com.backend.schedulingsystem.domain.model.entity.CoursesTaken;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
 import com.backend.schedulingsystem.domain.repository.CourseRepository;
 import com.backend.schedulingsystem.domain.repository.CoursesTakenRepository;
@@ -33,8 +34,19 @@ public class CourseDateService {
         List<Course> courseList = instructor.getCourseList();
         return courseList;
     }
-    List<Course> courseInADate(Date date){
+    List<CoursesTaken> coursesInADate(Date date){
         LocalDate localDate = LocalDate.now();
+        return null;
+    }
+    List<CoursesTaken> coursesInCurrentdate(){
+        LocalDate localDate = LocalDate.now();
+        return null;
+
+    }
+    List<CoursesTaken> corsesInAWeek(){
+        return null;
+    }
+    List<CoursesTaken> coursesBetweenDates(Date date1, Date date2){
         return null;
     }
 

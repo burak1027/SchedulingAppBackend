@@ -73,7 +73,32 @@ public class AuthServiceImpl implements AuthService {
         if (user!=null) {
             if(user.isActive()){
                 try {
-                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+                    authenticationManager2.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+                    token = Optional.of(jwtProvider.createToken(username, "STUDENT"));
+                } catch (AuthenticationException e){
+                    LOGGER.info("Log in failed for user {}", username);
+                }
+            }
+            else{
+                token =Optional.of("user is not activated");
+            }
+
+        }
+        else{
+            token= Optional.of("user does not exists");
+        }
+        return token;
+    }
+
+    @Override
+    public Optional<String> signinAdmin(String username, String password) {
+        LOGGER.info("New user attempting to sign in");
+        Optional<String> token = Optional.empty();
+        Instructor user = instructorRepository.findInstructorByEmail(username);
+        if (user!=null) {
+            if(user.isActive()){
+                try {
+                    authenticationManager2.authenticate(new UsernamePasswordAuthenticationToken(username, password));
                     token = Optional.of(jwtProvider.createToken(username, "STUDENT"));
                 } catch (AuthenticationException e){
                     LOGGER.info("Log in failed for user {}", username);
