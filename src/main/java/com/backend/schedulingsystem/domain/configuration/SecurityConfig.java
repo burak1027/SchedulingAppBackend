@@ -1,5 +1,6 @@
 package com.backend.schedulingsystem.domain.configuration;
 
+import com.backend.schedulingsystem.domain.Auth.AdminUserDetailsService;
 import com.backend.schedulingsystem.domain.Auth.InstructorUserDetailsService;
 import com.backend.schedulingsystem.domain.Auth.StudentUserDetailsService;
 import com.backend.schedulingsystem.domain.security.JwtTokenFilter;
@@ -61,7 +62,7 @@ public class SecurityConfig {
 
 //            http.authorizeRequests().anyRequest().authenticated();
 
-            http.addFilterBefore(new JwtTokenFilter(studentUserDetailsService,null), UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(new JwtTokenFilter(studentUserDetailsService,null,null), UsernamePasswordAuthenticationFilter.class);
         }
         @Bean
         @Override
@@ -99,7 +100,7 @@ public class SecurityConfig {
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("INSTRUCTOR");
 
-            http.addFilterBefore(new JwtTokenFilter(null,instructorUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+            http.addFilterBefore(new JwtTokenFilter(null,instructorUserDetailsService,null), UsernamePasswordAuthenticationFilter.class);
         }
 
         @Bean
@@ -111,6 +112,39 @@ public class SecurityConfig {
 //            web.ignoring();
 //            super.configure(web);
 //        }
+    }
+    @Configuration
+    @Order(3)
+    public static class AdminConfigurationAdapter extends WebSecurityConfigurerAdapter{
+        @Autowired
+        AdminUserDetailsService adminUserDetailsService;
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+            provider.setUserDetailsService(adminUserDetailsService);
+            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+            auth.authenticationProvider(provider);
+//            auth.userDetailsService(instructorUserDetailsService);
+        }
+        @Bean
+        public GrantedAuthoritiesMapper authoritiesMapper3(){
+            SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
+            authorityMapper.setConvertToUpperCase(true);
+            return authorityMapper;
+        }
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http.csrf().disable();
+            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("ADMIN");
+
+            http.addFilterBefore(new JwtTokenFilter(null,null,adminUserDetailsService), UsernamePasswordAuthenticationFilter.class);
+        }
+
+        @Bean
+        public AuthenticationManager authenticationManagerBean3() throws Exception {
+            return super.authenticationManagerBean();
+        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.backend.schedulingsystem.domain.security;
 
+import com.backend.schedulingsystem.domain.Auth.AdminUserDetailsService;
 import com.backend.schedulingsystem.domain.Auth.InstructorUserDetailsService;
 import com.backend.schedulingsystem.domain.Auth.StudentUserDetailsService;
 import org.slf4j.Logger;
@@ -24,13 +25,14 @@ public class JwtTokenFilter extends GenericFilterBean {
 
     private StudentUserDetailsService studentUserDetailsService;
     private InstructorUserDetailsService instructorUserDetailsService;
+    private AdminUserDetailsService adminUserDetailsService;
 
-    public JwtTokenFilter(StudentUserDetailsService studentUserDetailsService, InstructorUserDetailsService instructorUserDetailsService) {
+
+    public JwtTokenFilter(StudentUserDetailsService studentUserDetailsService, InstructorUserDetailsService instructorUserDetailsService, AdminUserDetailsService adminUserDetailsService) {
         this.studentUserDetailsService = studentUserDetailsService;
         this.instructorUserDetailsService = instructorUserDetailsService;
+        this.adminUserDetailsService = adminUserDetailsService;
     }
-
-
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain filterChain) throws IOException, ServletException {
@@ -58,6 +60,17 @@ public class JwtTokenFilter extends GenericFilterBean {
                             new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
                 });
             });
+        }
+        else if(adminUserDetailsService!=null){
+            getBearerToken(headerValue).ifPresent(token-> {
+                //Pull the Username and Roles from the JWT to construct the user details
+                adminUserDetailsService.loadUserByJwtToken(token).ifPresent(userDetails -> {
+                    //Add the user details (Permissions) to the Context for just this API invocation
+                    SecurityContextHolder.getContext().setAuthentication(
+                            new PreAuthenticatedAuthenticationToken(userDetails, "", userDetails.getAuthorities()));
+                });
+            });
+
         }
 
 

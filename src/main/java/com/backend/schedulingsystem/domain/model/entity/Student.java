@@ -13,6 +13,11 @@ import java.util.List;
 public class Student extends User{
     @OneToMany(mappedBy = "student")
     List<CoursesTaken> courses;
+
+    public List<CoursesTaken> getCourses() {
+        return courses;
+    }
+
     public Student(String name, String surname, String email, String password, boolean b) {
         super(name,surname,email,password,false);
     }

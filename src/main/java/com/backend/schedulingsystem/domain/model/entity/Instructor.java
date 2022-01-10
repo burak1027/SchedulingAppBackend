@@ -15,4 +15,8 @@ import java.util.List;
 public class Instructor extends User {
     @OneToMany(mappedBy = "instructor")
     List<Course> courseList;
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
 }
