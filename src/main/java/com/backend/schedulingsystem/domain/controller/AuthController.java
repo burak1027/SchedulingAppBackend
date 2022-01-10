@@ -26,7 +26,7 @@ public class AuthController {
         System.out.println("Inside controller");
         String rtn = authService.signinStudent(email,password).get();
         if(!rtn.isEmpty()){
-            emailSenderService.sendEmail("bburakk.1999@gmail.com","I think I did it :D","java email");
+           // emailSenderService.sendEmail("bburakk.1999@gmail.com","I think I did it :D","java email");
         }
         return rtn ;
     }
