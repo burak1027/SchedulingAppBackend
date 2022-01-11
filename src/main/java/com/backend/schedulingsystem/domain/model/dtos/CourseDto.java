@@ -3,11 +3,12 @@ package com.backend.schedulingsystem.domain.model.dtos;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CourseDto {
     long id;
-    Date date;
+    LocalDate date;
     Time startTime;
     Time endTime;
     String langLvl;
@@ -19,7 +20,7 @@ public class CourseDto {
         this.id = id;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -51,7 +52,7 @@ public class CourseDto {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 

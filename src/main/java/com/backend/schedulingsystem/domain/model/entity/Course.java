@@ -2,6 +2,7 @@ package com.backend.schedulingsystem.domain.model.entity;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -12,7 +13,7 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
     @Column(name = "date_of_course")
-    Date date;
+    LocalDate date;
     @Column(name = "start_time")
     Time startTime;
     @Column(name = "end_time")
@@ -31,7 +32,7 @@ public class Course {
         this.id = id;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -63,7 +64,7 @@ public class Course {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
