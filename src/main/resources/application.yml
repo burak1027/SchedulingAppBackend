@@ -39,3 +39,5 @@ security:
     token:
       ssecret-key: secret-key-for-encryption
       expiration: 600000
+
+
