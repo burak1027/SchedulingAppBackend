@@ -14,13 +14,13 @@ public class CourseEnrollmentController {
     @Autowired
     CourseEnrollmentService courseEnrollmentService;
 
-    @PostMapping("/courseAcceptance")
+    @PostMapping("/course-acceptance")
     public void accepTheCourse(@RequestParam("courseId") long courseId,@RequestParam("isAccepted") boolean isAccepted){
         courseEnrollmentService.acceptTheCourse(courseId,isAccepted);
     }
     @PostMapping("/enroll-course")
     public void enrollCourse(@RequestParam("studentEmail") String studentMail,@RequestParam("courseId") long courseId){
-        courseEnrollmentService.enrollCourse(studentMail,courseId);
+        courseEnrollmentService.enrollCourseRequest(studentMail,courseId);
     }
 
 }

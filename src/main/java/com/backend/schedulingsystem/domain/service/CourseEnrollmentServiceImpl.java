@@ -36,6 +36,7 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         CourseTaken coursesTaken = new CourseTaken();
         coursesTaken.setCourse(course);
         coursesTaken.setStudent(student);
+        coursesTakenRepository.save(coursesTaken);
         String message = String.format("Your course %s is wanted to be enrolled by %s.",course.getTopic(),studentMail);
 //        emailSenderService.sendEmail(course.getInstructor().getEmail(),message,"Course enrollment");
 
@@ -43,11 +44,11 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     @Transactional
     @Override
     public void enrollCourse(String studentMail, long courseId) {
-        Student student = studentRepository.findStudentByEmail(studentMail);
-        Course course = courseRepository.findCourseById(courseId);
-        CourseTaken coursesTaken = new CourseTaken();
-        coursesTaken.setCourse(course);
-        coursesTaken.setStudent(student);
+//        Student student = studentRepository.findStudentByEmail(studentMail);
+//        Course course = courseRepository.findCourseById(courseId);
+//        CourseTaken coursesTaken = new CourseTaken();
+//        coursesTaken.setCourse(course);
+//        coursesTaken.setStudent(student);
     }
 
     @Override
