@@ -46,10 +46,10 @@ public class CourseDateServiceImpl implements CourseDateService{
         });
         return courseDtoList;
     }
-    List<CourseTaken> coursesInADate(Date date){
+    public List<CourseTaken> coursesInADate(Date date){
         return null;
     }
-    List<CourseTaken> coursesInCurrentdate(){
+    public List<CourseTaken> coursesInCurrentdate(){
         LocalDate localDate = LocalDate.now();
         return null;
 
@@ -57,7 +57,7 @@ public class CourseDateServiceImpl implements CourseDateService{
     List<CourseTaken> corsesInAWeek(){
         return null;
     }
-    List<CourseTaken> coursesBetweenDates(Date date1, Date date2){
+    public List<CourseTaken> coursesBetweenDates(Date date1, Date date2){
         return null;
     }
 

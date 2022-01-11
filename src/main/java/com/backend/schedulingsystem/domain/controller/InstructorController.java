@@ -17,13 +17,11 @@ public class InstructorController {
     InstructorService instructorService;
     @Autowired
     CourseDateService courseDateService;
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/all")
     List<InstructorDto> getStudentById() {
         System.out.println("HERE IT IS");
         return instructorService.instructorList();
     }
-    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/all2")
     List<CourseDto> getStudentById2() {
         System.out.println("HERE IT IS");
