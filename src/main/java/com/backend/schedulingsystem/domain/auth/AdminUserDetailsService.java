@@ -26,7 +26,7 @@ public class AdminUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AdminDto adminDto = UserMapper.entityToDto(adminRepository.findAdminByEmail(username),new AdminDto());
         return withUsername((adminDto.getEmail()))
-                .authorities(("INSTRUCTOR"))
+                .authorities(("ADMIN"))
                 .password(adminDto.getPassword()) //token does not have password but field may not be empty
                 .accountExpired(false)
                 .accountLocked(false)

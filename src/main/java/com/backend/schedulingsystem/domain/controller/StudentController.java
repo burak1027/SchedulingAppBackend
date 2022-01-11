@@ -66,16 +66,10 @@ public class StudentController {
 //        return studentService.signin(email,password).toString();
         return studentService.signin(email,password);
     }
-//    @DeleteMapping("/cancel-course")
-//    void cancelCourse(){
-//        studentService.
-//    }
-
-//    @GetMapping("/courses")
-//    List<CourseDto> getCourses(String email){
-//        StudentDto student = studentService.getStudentByEmail(email);
-//        studentService.
-//    }
+    @GetMapping("/courses")
+    List<CourseDto> getCourses(@RequestParam("email")String email,@RequestParam("email")long courseId){
+        return studentService.coursesEnrolledByAStudent(email,courseId);
+    }
 
 
 }

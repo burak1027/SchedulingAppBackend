@@ -19,8 +19,8 @@ import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMap
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
-@Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Configuration
@@ -45,7 +45,6 @@ public class SecurityConfig {
 //            authorityMapper.setDefaultAuthority("ROLE_STUDENT");
             return authorityMapper;
         }
-
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -96,6 +95,9 @@ public class SecurityConfig {
             http.csrf().disable();
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("INSTRUCTOR");
+            http.authorizeRequests().antMatchers("/instructor/accept-list").hasAnyAuthority("INSTRUCTOR");
+            http.authorizeRequests().antMatchers("/instructor/all").hasAnyAuthority("INSTRUCTOR");
+
 
             http.addFilterBefore(new JwtTokenFilter(null,instructorUserDetailsService,null), UsernamePasswordAuthenticationFilter.class);
         }
@@ -133,7 +135,10 @@ public class SecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http.csrf().disable();
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("ADMIN");
+//            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("ADMIN");
+            http.authorizeRequests().antMatchers("/course-date/all**").hasAnyAuthority("ADMIN");
+            http.authorizeRequests().antMatchers("/course-date/period**").hasAnyAuthority("ADMIN");
+
 
             http.addFilterBefore(new JwtTokenFilter(null,null,adminUserDetailsService), UsernamePasswordAuthenticationFilter.class);
         }

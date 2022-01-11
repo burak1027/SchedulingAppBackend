@@ -1,5 +1,7 @@
 package com.backend.schedulingsystem.domain.service;
 
+import com.backend.schedulingsystem.domain.mappers.CourseMapper;
+import com.backend.schedulingsystem.domain.model.dtos.CourseDto;
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
 import com.backend.schedulingsystem.domain.model.entity.Student;
 import com.backend.schedulingsystem.domain.repository.StudentRepository;
@@ -16,6 +18,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -93,5 +97,17 @@ public class StudentServiceImpl implements StudentService {
             token= Optional.of("user does not exists");
         }
         return token;
+    }
+
+    @Override
+    public List<CourseDto> coursesEnrolledByAStudent(String username, long id) {
+        Student student = studentRepository.findStudentByEmail(username);
+        List<CourseDto> courseDtos = new ArrayList<>();
+        student.getCourses().forEach(courseTaken -> {
+            if(courseTaken.getCourse().isEnrolled()){
+                courseDtos.add(CourseMapper.entityToDto(courseTaken.getCourse()));
+            }
+        });
+        return courseDtos;
     }
 }
