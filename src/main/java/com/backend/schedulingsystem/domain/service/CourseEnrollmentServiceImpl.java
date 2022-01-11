@@ -36,9 +36,12 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         CourseTaken coursesTaken = new CourseTaken();
         coursesTaken.setCourse(course);
         coursesTaken.setStudent(student);
-        coursesTakenRepository.save(coursesTaken);
-        String message = String.format("Your course %s is wanted to be enrolled by %s.",course.getTopic(),studentMail);
+        if(coursesTakenRepository.findAllByCourseAndStudent(course,student).isEmpty()){
+            coursesTakenRepository.save(coursesTaken);
+            String message = String.format("Your course %s is wanted to be enrolled by %s.",course.getTopic(),studentMail);
 //        emailSenderService.sendEmail(course.getInstructor().getEmail(),message,"Course enrollment");
+
+        }
 
     }
     @Transactional
@@ -63,11 +66,24 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
 
     @Transactional
     @Override
-    public void cancelCourseStudent(CourseTaken course, String studentEmail) {
-        if(studentEmail.equals(course.getStudent().getEmail())){
-            coursesTakenRepository.delete(course);
+    public void cancelCourseStudent(long courseId, String studentEmail) {
+        Course course = courseRepository.findCourseById(courseId);
+        if(studentEmail.equals(course.getCoursesTaken().getStudent().getEmail())){
+            coursesTakenRepository.delete(course.getCoursesTaken());
         }
     }
+
+    @Override
+    public void cancelCourseInstructor(long courseId, String instructorEmail) {
+        Course course = courseRepository.findCourseById(courseId);
+        if(instructorEmail.equals(course.getInstructor().getEmail())){
+            coursesTakenRepository.delete(course.getCoursesTaken());
+            courseRepository.delete(course);
+        }
+
+    }
+
+
     @Transactional
     @Override
     public void acceptTheCourse(long courseId, boolean isAccepted){

@@ -1,6 +1,8 @@
 package com.backend.schedulingsystem.domain.controller;
 
+import com.backend.schedulingsystem.domain.model.dtos.CourseDto;
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
+import com.backend.schedulingsystem.domain.model.entity.Student;
 import com.backend.schedulingsystem.domain.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -63,6 +66,16 @@ public class StudentController {
 //        return studentService.signin(email,password).toString();
         return studentService.signin(email,password);
     }
+//    @DeleteMapping("/cancel-course")
+//    void cancelCourse(){
+//        studentService.
+//    }
+
+//    @GetMapping("/courses")
+//    List<CourseDto> getCourses(String email){
+//        StudentDto student = studentService.getStudentByEmail(email);
+//        studentService.
+//    }
 
 
 }

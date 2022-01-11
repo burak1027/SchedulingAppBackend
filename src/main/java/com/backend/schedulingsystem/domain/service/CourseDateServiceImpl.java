@@ -40,7 +40,7 @@ public class CourseDateServiceImpl implements CourseDateService{
         List<Course> courseList = courseRepository.findAll();
         List<CourseDto> courseDtoList = new ArrayList<>();
         courseList.forEach(course -> {
-            if(course.getCoursesTaken()!=null){
+            if(course.getCoursesTaken()!=null && course.isEnrolled()){
                 CourseDto courseDto = CourseMapper.entityToDto(course);
                 courseDto.getCourseTakenDto().getStudent().setPassword("");
                 courseDto.getInstructor().setPassword("");
@@ -55,7 +55,7 @@ public class CourseDateServiceImpl implements CourseDateService{
         List<Course> courseList = courseRepository.findAllByDate(date);
         List<CourseDto> courseDtos = new ArrayList<>();
         courseList.forEach(course -> {
-            if(course.getCoursesTaken()!=null){
+            if(course.getCoursesTaken()!=null && course.isEnrolled()){
                 CourseDto courseDto = CourseMapper.entityToDto(course);
                 courseDto.getCourseTakenDto().getStudent().setPassword("");
                 courseDto.getInstructor().setPassword("");
@@ -76,7 +76,7 @@ public class CourseDateServiceImpl implements CourseDateService{
         List<Course> courseList = courseRepository.findAllByDate( new SimpleDateFormat("yyyy-MM-dd").parse(localDate.toString()));
         List<CourseDto> courseDtos = new ArrayList<>();
         courseList.forEach(course -> {
-            if(course.getCoursesTaken()!=null){
+            if(course.getCoursesTaken()!=null && course.isEnrolled()){
                 CourseDto courseDto = CourseMapper.entityToDto(course);
                 courseDto.getCourseTakenDto().getStudent().setPassword("");
                 courseDto.getInstructor().setPassword("");
@@ -89,7 +89,7 @@ public class CourseDateServiceImpl implements CourseDateService{
         List<Course> courses = courseRepository.findAllWithinDates(date1,date2);
         List<CourseDto> courseDtos = new ArrayList<>();
         courses.forEach(course -> {
-            if(course.getCoursesTaken()!=null){
+            if(course.getCoursesTaken()!=null && course.isEnrolled()){
                 CourseDto courseDto = CourseMapper.entityToDto(course);
                 courseDto.getCourseTakenDto().getStudent().setPassword("");
                 courseDto.getInstructor().setPassword("");

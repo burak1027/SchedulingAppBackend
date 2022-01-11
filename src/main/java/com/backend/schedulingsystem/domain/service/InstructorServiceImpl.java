@@ -58,11 +58,23 @@ public class InstructorServiceImpl implements InstructorService {
     @Transactional
     @Override
     public List<Course> coursesGiven(long id) {
-        Instructor instructor = (Instructor) instructorRepository.findInstructorById(id);
+        Instructor instructor =  instructorRepository.findInstructorById(id);
         List<Course> courseList = instructor.getCourseList();
 
         return courseList;
     }
+
+    @Override
+    public List<CourseDto> coursesGivenByInstructor(String email, long courseId) {
+        Instructor instructor =  instructorRepository.findInstructorByEmail(email);
+        List<CourseDto> courseDtos = new ArrayList<>();
+        instructor.getCourseList().forEach(course -> {
+            courseDtos.add(CourseMapper.entityToDto(course));
+        });
+
+        return courseDtos;
+    }
+
     @Transactional
     @Override
     public List<InstructorDto> instructorList() {
@@ -93,6 +105,11 @@ public class InstructorServiceImpl implements InstructorService {
         });
 
         return courseDtos;
+    }
+
+    @Override
+    public void cancelCourse(String email, long id) {
+
     }
 
 

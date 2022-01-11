@@ -84,6 +84,7 @@ public class AuthServiceImpl implements AuthService {
                     authenticationManager2.authenticate(new UsernamePasswordAuthenticationToken(username, password));
                     token = Optional.of(jwtProvider.createToken(username, "INSTRUCTOR"));
                 } catch (AuthenticationException e){
+                    token =Optional.of("wrong password");
                     LOGGER.info("Log in failed for user {}", username);
                 }
             }
@@ -109,10 +110,12 @@ public class AuthServiceImpl implements AuthService {
                     authenticationManager3.authenticate(new UsernamePasswordAuthenticationToken(username, password));
                     token = Optional.of(jwtProvider.createToken(username, "ADMIN"));
                 } catch (AuthenticationException e){
+                    token =Optional.of("wrong password");
                     LOGGER.info("Log in failed for user {}", username);
                 }
             }
             else{
+
                 token =Optional.of("user is not activated");
             }
 

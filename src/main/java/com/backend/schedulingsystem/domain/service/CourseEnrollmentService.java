@@ -11,6 +11,8 @@ public interface CourseEnrollmentService {
 
     void createCourse(Course course);
     void reScheduleCourse(CourseTaken coursesTaken);
-    void cancelCourseStudent(CourseTaken course, String studentEmail);
+    void cancelCourseStudent(long courseId, String studentEmail);
+    void cancelCourseInstructor(long courseId, String instructorEmail);
+
     void acceptTheCourse(long courseId, boolean isAccepted);
 }

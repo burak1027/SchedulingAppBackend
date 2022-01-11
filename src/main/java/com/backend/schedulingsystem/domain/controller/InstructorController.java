@@ -26,4 +26,8 @@ public class InstructorController {
     List<CourseDto> acceptList(@RequestParam("email") String email){
         return instructorService.coursesToAccept(email);
     }
+    @GetMapping("/instructor-course")
+    List<CourseDto> givenCourses(@RequestParam("email") String email, @RequestParam("courseId") long id){
+        return instructorService.coursesGivenByInstructor(email,id);
+    }
 }
