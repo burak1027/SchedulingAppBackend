@@ -77,6 +77,7 @@ public class InstructorServiceImpl implements InstructorService {
             });
             InstructorDto instructorDto = UserMapper.<InstructorDto>entityToDto(instructor,new InstructorDto());
             instructorDto.setCourseList(activeCourses);
+            instructorDto.setPassword("");
             instructorDtos.add(instructorDto);
         });
         return instructorDtos;

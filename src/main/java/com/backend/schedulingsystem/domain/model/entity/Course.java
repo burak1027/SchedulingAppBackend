@@ -12,12 +12,15 @@ public class Course {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_of_course")
-    LocalDate date;
+    Date date;
+    @Temporal(TemporalType.TIME)
     @Column(name = "start_time")
-    Time startTime;
+    Date startTime;
+    @Temporal(TemporalType.TIME)
     @Column(name = "end_time")
-    Time endTime;
+    Date endTime;
     @Column(name = "lang_lvl")
     String langLvl;
     @Column(name = "topic")
@@ -32,15 +35,15 @@ public class Course {
         this.id = id;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -64,15 +67,15 @@ public class Course {
         return id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 

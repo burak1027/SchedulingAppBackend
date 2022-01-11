@@ -1,21 +1,14 @@
 package com.backend.schedulingsystem;
 
-import com.backend.schedulingsystem.domain.model.entity.Student;
-import com.backend.schedulingsystem.domain.model.entity.User;
 import com.backend.schedulingsystem.domain.repository.CourseRepository;
 import com.backend.schedulingsystem.domain.repository.CoursesTakenRepository;
-import com.backend.schedulingsystem.domain.repository.StudentRepository;
-import com.backend.schedulingsystem.domain.repository.UserRepository;
+import com.backend.schedulingsystem.domain.service.CourseDateService;
+import com.backend.schedulingsystem.domain.service.CourseDateServiceImpl;
 import com.backend.schedulingsystem.domain.service.InstructorService;
-import com.backend.schedulingsystem.domain.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 @SpringBootApplication
 public class SchedulingsystemApplication implements CommandLineRunner {
@@ -30,6 +23,8 @@ public class SchedulingsystemApplication implements CommandLineRunner {
     CoursesTakenRepository coursesTakenRepository;
     @Autowired
     InstructorService instructorService;
+    @Autowired
+    CourseDateService courseDateService;
     @Override
     public void run(String... args) throws Exception {
         instructorService.instructorList().forEach(instructorDto -> {
@@ -37,6 +32,7 @@ public class SchedulingsystemApplication implements CommandLineRunner {
                 System.out.println(courseDto.getTopic());
             });
         });
+    courseDateService.allTakenCourses().forEach(course -> course.getCourseTakenDto().getStudent().getEmail());
 //        System.out.println(instructorService.instructorList());
 
 

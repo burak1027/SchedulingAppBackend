@@ -8,27 +8,27 @@ import java.util.Date;
 
 public class CourseDto {
     long id;
-    LocalDate date;
-    Time startTime;
-    Time endTime;
+    Date date;
+    Date startTime;
+    Date endTime;
     String langLvl;
     String topic;
-    Instructor instructor;
+    InstructorDto instructor;
     CourseTakenDto courseTakenDto;
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -40,7 +40,7 @@ public class CourseDto {
         this.topic = topic;
     }
 
-    public void setInstructor(Instructor instructor) {
+    public void setInstructor(InstructorDto instructor) {
         this.instructor = instructor;
     }
 
@@ -52,15 +52,15 @@ public class CourseDto {
         return id;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
@@ -72,7 +72,7 @@ public class CourseDto {
         return topic;
     }
 
-    public Instructor getInstructor() {
+    public InstructorDto getInstructor() {
         return instructor;
     }
 
