@@ -49,7 +49,7 @@ public class AuthController {
     @ResponseBody
     public String signinAdmin(@RequestParam("email")String email, @RequestParam("password") String password) {
         System.out.println("Inside controller");
-        return authService.signinInstructor(email,password).get();
+        return authService.signinAdmin(email,password).get();
     }
 
     @PostMapping("/student-signup")

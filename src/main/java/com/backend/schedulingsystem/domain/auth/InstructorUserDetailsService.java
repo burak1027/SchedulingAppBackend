@@ -16,6 +16,7 @@ import static org.springframework.security.core.userdetails.User.withUsername;
 @Service
 public class InstructorUserDetailsService implements UserDetailsService {
 
+    @Autowired
     InstructorService instructorService;
     @Autowired
     private JwtUtil jwtProvider;
@@ -29,7 +30,14 @@ public class InstructorUserDetailsService implements UserDetailsService {
         if(instructorDto==null){
             throw new UsernameNotFoundException("WRONG EMAIL");
         }
-        return new InstructorDetails(instructorDto);
+        return withUsername((instructorDto.getEmail()))
+                .authorities(("INSTRUCTOR"))
+                .password(instructorDto.getPassword()) //token does not have password but field may not be empty
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(false)
+                .build();
     }
     public Optional<UserDetails> loadUserByJwtToken(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {

@@ -25,8 +25,14 @@ public class AdminUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AdminDto adminDto = UserMapper.entityToDto(adminRepository.findAdminByEmail(username),new AdminDto());
-        return null;
-    }
+        return withUsername((adminDto.getEmail()))
+                .authorities(("INSTRUCTOR"))
+                .password(adminDto.getPassword()) //token does not have password but field may not be empty
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(false)
+                .build();    }
     public Optional<UserDetails> loadUserByJwtToken(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {
             return Optional.of(

@@ -82,7 +82,7 @@ public class AuthServiceImpl implements AuthService {
             if(user.isActive()){
                 try {
                     authenticationManager2.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-                    token = Optional.of(jwtProvider.createToken(username, "STUDENT"));
+                    token = Optional.of(jwtProvider.createToken(username, "INSTRUCTOR"));
                 } catch (AuthenticationException e){
                     LOGGER.info("Log in failed for user {}", username);
                 }
@@ -107,7 +107,7 @@ public class AuthServiceImpl implements AuthService {
             if(user.isActive()){
                 try {
                     authenticationManager3.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-                    token = Optional.of(jwtProvider.createToken(username, "STUDENT"));
+                    token = Optional.of(jwtProvider.createToken(username, "ADMIN"));
                 } catch (AuthenticationException e){
                     LOGGER.info("Log in failed for user {}", username);
                 }
