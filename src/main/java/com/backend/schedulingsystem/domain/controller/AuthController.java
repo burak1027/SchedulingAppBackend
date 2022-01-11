@@ -68,7 +68,7 @@ public class AuthController {
     public String signupInstructor(@RequestBody  InstructorDto instructorDto){
         InstructorDto instructor = instructorService.getInstructorByEmail(instructorDto.getEmail());
         if(instructor==null){
-            authService.signupInstructor(instructorDto.getName(),instructorDto.getSurname(),instructorDto.getEmail(),instructorDto.getPassword())
+            authService.signupInstructor(instructorDto.getName(),instructorDto.getSurname(),instructorDto.getEmail(),instructorDto.getPassword());
             return "success";
         }else{
             return "user exists";
