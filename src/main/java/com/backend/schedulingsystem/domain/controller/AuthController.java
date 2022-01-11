@@ -1,10 +1,13 @@
 package com.backend.schedulingsystem.domain.controller;
 
 import com.backend.schedulingsystem.domain.email.EmailSenderService;
+import com.backend.schedulingsystem.domain.model.dtos.InstructorDto;
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
 import com.backend.schedulingsystem.domain.model.entity.Student;
 import com.backend.schedulingsystem.domain.service.AuthService;
+import com.backend.schedulingsystem.domain.service.InstructorService;
+import com.backend.schedulingsystem.domain.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +23,10 @@ public class AuthController {
     AuthService authService;
     @Autowired
     EmailSenderService emailSenderService;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    InstructorService instructorService;
 
     @PostMapping("/student-signin")
     @ResponseBody
@@ -46,11 +53,26 @@ public class AuthController {
     }
 
     @PostMapping("/student-signup")
-    public Optional<Student> signup(@RequestBody  StudentDto studentDto){
-        return authService.signupStudent(studentDto.getName(),studentDto.getSurname(),studentDto.getEmail(),studentDto.getPassword());
+    public String signup(@RequestBody  StudentDto studentDto){
+       StudentDto student = studentService.getStudentByEmail(studentDto.getEmail());
+        if(student==null){
+            authService.signupStudent(studentDto.getName(),studentDto.getSurname(),studentDto.getEmail(),studentDto.getPassword());
+            return "success";
+        }
+        else{
+            return "user exists";
+        }
+
     }
     @PostMapping("/instructor-signup")
-    public Optional<Instructor> signupInstructor(@RequestBody  StudentDto studentDto){
-        return authService.signupInstructor(studentDto.getName(),studentDto.getSurname(),studentDto.getEmail(),studentDto.getPassword());
+    public String signupInstructor(@RequestBody  InstructorDto instructorDto){
+        InstructorDto instructor = instructorService.getInstructorByEmail(instructorDto.getEmail());
+        if(instructor==null){
+            authService.signupInstructor(instructorDto.getName(),instructorDto.getSurname(),instructorDto.getEmail(),instructorDto.getPassword())
+            return "success";
+        }else{
+            return "user exists";
+        }
+
     }
 }
