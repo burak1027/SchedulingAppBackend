@@ -8,9 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name = "taken_course")
 
-public class CoursesTaken {
+public class CourseTaken {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     long id;
     @OneToOne

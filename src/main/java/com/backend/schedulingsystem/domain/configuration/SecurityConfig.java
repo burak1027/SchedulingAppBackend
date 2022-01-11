@@ -1,11 +1,9 @@
 package com.backend.schedulingsystem.domain.configuration;
 
-import com.backend.schedulingsystem.domain.Auth.AdminUserDetailsService;
-import com.backend.schedulingsystem.domain.Auth.InstructorUserDetailsService;
-import com.backend.schedulingsystem.domain.Auth.StudentUserDetailsService;
+import com.backend.schedulingsystem.domain.auth.AdminUserDetailsService;
+import com.backend.schedulingsystem.domain.auth.InstructorUserDetailsService;
+import com.backend.schedulingsystem.domain.auth.StudentUserDetailsService;
 import com.backend.schedulingsystem.domain.security.JwtTokenFilter;
-import com.backend.schedulingsystem.domain.service.InstructorService;
-import com.backend.schedulingsystem.domain.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;

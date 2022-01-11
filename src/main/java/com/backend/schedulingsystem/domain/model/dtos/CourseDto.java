@@ -1,31 +1,19 @@
-package com.backend.schedulingsystem.domain.model.entity;
+package com.backend.schedulingsystem.domain.model.dtos;
 
-import javax.persistence.*;
+import com.backend.schedulingsystem.domain.model.entity.Instructor;
+
 import java.sql.Time;
 import java.util.Date;
 
-@Entity
-@Table(name = "course")
-public class Course {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class CourseDto {
     long id;
-    @Column(name = "date_of_course")
     Date date;
-    @Column(name = "start_time")
     Time startTime;
-    @Column(name = "end_time")
     Time endTime;
-    @Column(name = "lang_lvl")
     String langLvl;
-    @Column(name = "topic")
     String topic;
-    @ManyToOne
-    @JoinColumn(name = "instructor_id",nullable = false)
     Instructor instructor;
-    @OneToOne(mappedBy = "course")
-    CourseTaken coursesTaken;
+    CourseTakenDto courseTakenDto;
 
     public void setId(long id) {
         this.id = id;
@@ -55,8 +43,8 @@ public class Course {
         this.instructor = instructor;
     }
 
-    public void setCoursesTaken(CourseTaken coursesTaken) {
-        this.coursesTaken = coursesTaken;
+    public void setCourseTakenDto(CourseTakenDto courseTakenDto) {
+        this.courseTakenDto = courseTakenDto;
     }
 
     public long getId() {
@@ -87,7 +75,7 @@ public class Course {
         return instructor;
     }
 
-    public CourseTaken getCoursesTaken() {
-        return coursesTaken;
+    public CourseTakenDto getCourseTakenDto() {
+        return courseTakenDto;
     }
 }

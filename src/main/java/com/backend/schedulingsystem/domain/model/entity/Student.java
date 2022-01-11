@@ -1,6 +1,8 @@
 package com.backend.schedulingsystem.domain.model.entity;
 
 import lombok.Setter;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,10 +13,10 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "id")
 
 public class Student extends User{
-    @OneToMany(mappedBy = "student")
-    List<CoursesTaken> courses;
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "student",cascade = CascadeType.ALL)
+    List<CourseTaken> courses;
 
-    public List<CoursesTaken> getCourses() {
+    public List<CourseTaken> getCourses() {
         return courses;
     }
 

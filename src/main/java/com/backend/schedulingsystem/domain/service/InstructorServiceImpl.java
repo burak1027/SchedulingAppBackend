@@ -1,5 +1,7 @@
 package com.backend.schedulingsystem.domain.service;
 
+import com.backend.schedulingsystem.domain.mappers.CourseMapper;
+import com.backend.schedulingsystem.domain.model.dtos.CourseDto;
 import com.backend.schedulingsystem.domain.model.dtos.InstructorDto;
 import com.backend.schedulingsystem.domain.model.entity.Course;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -52,7 +55,7 @@ public class InstructorServiceImpl implements InstructorService {
         instructorRepository.save(instructor);
 
     }
-
+    @Transactional
     @Override
     public List<Course> coursesGiven(long id) {
         Instructor instructor = (Instructor) instructorRepository.findInstructorById(id);
@@ -60,4 +63,23 @@ public class InstructorServiceImpl implements InstructorService {
 
         return courseList;
     }
+    @Transactional
+    @Override
+    public List<InstructorDto> instructorList() {
+        List<Instructor> instructors = instructorRepository.findAll();
+        List<InstructorDto> instructorDtos = new ArrayList<>();
+        instructors.forEach(instructor -> {
+            List<CourseDto> activeCourses = new ArrayList<>();
+            instructor.getCourseList().forEach(course -> {
+                if(course.getCoursesTaken()==null){
+                    activeCourses.add(CourseMapper.entityToDto(course));
+                }
+            });
+            InstructorDto instructorDto = UserMapper.<InstructorDto>entityToDto(instructor,new InstructorDto());
+            instructorDto.setCourseList(activeCourses);
+            instructorDtos.add(instructorDto);
+        });
+        return instructorDtos;
+    }
+
 }

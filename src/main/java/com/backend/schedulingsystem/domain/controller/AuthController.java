@@ -37,6 +37,14 @@ public class AuthController {
         System.out.println("Inside controller");
         return authService.signinInstructor(email,password).get();
     }
+
+    @PostMapping("/admin-signin")
+    @ResponseBody
+    public String signinAdmin(@RequestParam("email")String email, @RequestParam("password") String password) {
+        System.out.println("Inside controller");
+        return authService.signinInstructor(email,password).get();
+    }
+
     @PostMapping("/student-signup")
     public Optional<Student> signup(@RequestBody  StudentDto studentDto){
         return authService.signupStudent(studentDto.getName(),studentDto.getSurname(),studentDto.getEmail(),studentDto.getPassword());

@@ -1,9 +1,8 @@
-package com.backend.schedulingsystem.domain.Auth;
+package com.backend.schedulingsystem.domain.auth;
 
-import com.backend.schedulingsystem.domain.mappers.UserMapper;
-import com.backend.schedulingsystem.domain.model.dtos.AdminDto;
-import com.backend.schedulingsystem.domain.repository.AdminRepository;
+import com.backend.schedulingsystem.domain.model.dtos.InstructorDto;
 import com.backend.schedulingsystem.domain.security.JwtUtil;
+import com.backend.schedulingsystem.domain.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,19 +12,24 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import static org.springframework.security.core.userdetails.User.withUsername;
+
 @Service
-public class AdminUserDetailsService implements UserDetailsService {
+public class InstructorUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    AdminRepository adminRepository;
-
+    InstructorService instructorService;
     @Autowired
     private JwtUtil jwtProvider;
+    public InstructorUserDetailsService(InstructorService instructorService){
+        this.instructorService=instructorService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AdminDto adminDto = UserMapper.entityToDto(adminRepository.findAdminByEmail(username),new AdminDto());
-        return null;
+        InstructorDto instructorDto = instructorService.getInstructorByEmail(username);
+        if(instructorDto==null){
+            throw new UsernameNotFoundException("WRONG EMAIL");
+        }
+        return new InstructorDetails(instructorDto);
     }
     public Optional<UserDetails> loadUserByJwtToken(String jwtToken) {
         if (jwtProvider.isValidToken(jwtToken)) {

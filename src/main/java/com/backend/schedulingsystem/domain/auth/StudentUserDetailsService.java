@@ -1,9 +1,8 @@
-package com.backend.schedulingsystem.domain.Auth;
+package com.backend.schedulingsystem.domain.auth;
 
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
 import com.backend.schedulingsystem.domain.repository.StudentRepository;
 import com.backend.schedulingsystem.domain.security.JwtUtil;
-import com.backend.schedulingsystem.domain.service.StudentService;
 import com.backend.schedulingsystem.domain.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

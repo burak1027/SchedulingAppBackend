@@ -1,7 +1,9 @@
 package com.backend.schedulingsystem.domain.service;
 
+import com.backend.schedulingsystem.domain.model.entity.Admin;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
 import com.backend.schedulingsystem.domain.model.entity.Student;
+import com.backend.schedulingsystem.domain.repository.AdminRepository;
 import com.backend.schedulingsystem.domain.repository.InstructorRepository;
 import com.backend.schedulingsystem.domain.repository.StudentRepository;
 import com.backend.schedulingsystem.domain.security.JwtUtil;
@@ -22,6 +24,8 @@ public class AuthServiceImpl implements AuthService {
     private static final Logger LOGGER = LoggerFactory.getLogger(StudentServiceImpl.class);
     StudentRepository studentRepository;
     InstructorRepository instructorRepository;
+    AdminRepository adminRepository;
+    @Autowired
     private JwtUtil jwtProvider;
     @Qualifier("authenticationManagerBean")
     @Autowired
@@ -29,13 +33,17 @@ public class AuthServiceImpl implements AuthService {
     @Qualifier("authenticationManagerBean2")
     @Autowired
     private AuthenticationManager authenticationManager2;
-
+    @Qualifier("authenticationManagerBean3")
     @Autowired
-    public AuthServiceImpl(StudentRepository studentRepository, InstructorRepository instructorRepository, JwtUtil jwtProvider) {
+    private AuthenticationManager authenticationManager3;
+
+    public AuthServiceImpl(StudentRepository studentRepository, InstructorRepository instructorRepository, AdminRepository adminRepository) {
         this.studentRepository = studentRepository;
         this.instructorRepository = instructorRepository;
-        this.jwtProvider = jwtProvider;
+        this.adminRepository = adminRepository;
     }
+
+
 
     @Transactional
     @Override
@@ -64,7 +72,7 @@ public class AuthServiceImpl implements AuthService {
         }
         return token;
     }
-
+    @Transactional
     @Override
     public Optional<String> signinInstructor(String username, String password) {
         LOGGER.info("New user attempting to sign in");
@@ -89,16 +97,16 @@ public class AuthServiceImpl implements AuthService {
         }
         return token;
     }
-
+    @Transactional
     @Override
     public Optional<String> signinAdmin(String username, String password) {
         LOGGER.info("New user attempting to sign in");
         Optional<String> token = Optional.empty();
-        Instructor user = instructorRepository.findInstructorByEmail(username);
+        Admin user = adminRepository.findAdminByEmail(username);
         if (user!=null) {
             if(user.isActive()){
                 try {
-                    authenticationManager2.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+                    authenticationManager3.authenticate(new UsernamePasswordAuthenticationToken(username, password));
                     token = Optional.of(jwtProvider.createToken(username, "STUDENT"));
                 } catch (AuthenticationException e){
                     LOGGER.info("Log in failed for user {}", username);
@@ -114,7 +122,7 @@ public class AuthServiceImpl implements AuthService {
         }
         return token;
     }
-
+    @Transactional
     @Override
     public Optional<Student> signupStudent(String name,String surname, String email, String password) {
 
@@ -128,6 +136,7 @@ public class AuthServiceImpl implements AuthService {
         }
         return user;
     }
+    @Transactional
 
     @Override
     public Optional<Instructor> signupInstructor(String name,String surname, String email, String password) {

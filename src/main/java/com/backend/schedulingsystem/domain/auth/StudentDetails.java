@@ -1,6 +1,6 @@
-package com.backend.schedulingsystem.domain.Auth;
+package com.backend.schedulingsystem.domain.auth;
 
-import com.backend.schedulingsystem.domain.model.dtos.AdminDto;
+import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,27 +8,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Collections;
 
-public class AdminDetails implements UserDetails {
+public class StudentDetails implements UserDetails {
+    StudentDto studentDto;
 
-    AdminDto adminDto;
-
-    public AdminDetails(AdminDto adminDto) {
-        this.adminDto = adminDto;
+    public StudentDetails(StudentDto studentDto){
+        super();
+        this.studentDto=studentDto;
     }
-
-    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ADMIN"));
+        return Collections.singleton(new SimpleGrantedAuthority("STUDENT"));
     }
 
     @Override
     public String getPassword() {
-        return adminDto.getPassword();
+        return studentDto.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return adminDto.getEmail();
+        return studentDto.getEmail();
     }
 
     @Override

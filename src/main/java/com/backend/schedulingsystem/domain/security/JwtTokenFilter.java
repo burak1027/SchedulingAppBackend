@@ -1,12 +1,11 @@
 package com.backend.schedulingsystem.domain.security;
 
-import com.backend.schedulingsystem.domain.Auth.AdminUserDetailsService;
-import com.backend.schedulingsystem.domain.Auth.InstructorUserDetailsService;
-import com.backend.schedulingsystem.domain.Auth.StudentUserDetailsService;
+import com.backend.schedulingsystem.domain.auth.AdminUserDetailsService;
+import com.backend.schedulingsystem.domain.auth.InstructorUserDetailsService;
+import com.backend.schedulingsystem.domain.auth.StudentUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.web.filter.GenericFilterBean;
 

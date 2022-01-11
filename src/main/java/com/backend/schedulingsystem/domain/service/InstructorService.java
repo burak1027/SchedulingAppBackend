@@ -16,5 +16,6 @@ public interface InstructorService {
     void deleteInstructor(InstructorDto instructorDto);
     void updateInstructor(InstructorDto instructorDto);
     List<Course> coursesGiven(long id);
+    List<InstructorDto> instructorList();
 
 }
