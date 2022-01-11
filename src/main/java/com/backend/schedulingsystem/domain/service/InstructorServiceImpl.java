@@ -82,5 +82,18 @@ public class InstructorServiceImpl implements InstructorService {
         });
         return instructorDtos;
     }
+    @Override
+    public List<CourseDto> coursesToAccept(String email){
+        Instructor instructor = instructorRepository.findInstructorByEmail(email);
+        List<CourseDto> courseDtos = new ArrayList<>();
+        instructor.getCourseList().forEach(course -> {
+            if(course.getCoursesTaken()!=null&& !course.isEnrolled()){
+                courseDtos.add(CourseMapper.entityToDto(course));
+            }
+        });
+
+        return courseDtos;
+    }
+
 
 }

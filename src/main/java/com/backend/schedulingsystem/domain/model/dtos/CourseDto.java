@@ -15,6 +15,15 @@ public class CourseDto {
     String topic;
     InstructorDto instructor;
     CourseTakenDto courseTakenDto;
+    boolean isEnrolled;
+
+    public boolean isEnrolled() {
+        return isEnrolled;
+    }
+
+    public void setEnrolled(boolean enrolled) {
+        isEnrolled = enrolled;
+    }
 
     public void setId(long id) {
         this.id = id;

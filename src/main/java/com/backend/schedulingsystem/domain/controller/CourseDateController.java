@@ -31,10 +31,14 @@ public class CourseDateController {
     }
     @GetMapping("/given-date")
     List<CourseDto> getCoursesInADate(@RequestParam("date") String date) throws ParseException {
+//        SimpleDateFormat sdf2 = new SimpleDateFormat("dd/MM/yyyy");
+//        Date convertedCurrentDate = sdf2.parse(date);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date convertedCurrentDate = sdf.parse(date);
+//        String date2 = sdf.format(convertedCurrentDate);
+//        System.out.println(date2);
+        Date convertedCurrentDate2 = sdf.parse(date);
         System.out.println("HERE IT IS");
-        return courseDateService.coursesInADate(convertedCurrentDate);
+        return courseDateService.coursesInADate(convertedCurrentDate2);
     }
     @GetMapping("/period")
     List<CourseDto> getCoursesBetweenDates(@RequestParam("date1") String date1,@RequestParam("date2") String date2) throws ParseException {

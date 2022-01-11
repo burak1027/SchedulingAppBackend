@@ -18,13 +18,12 @@ public class InstructorController {
     @Autowired
     CourseDateService courseDateService;
     @GetMapping("/all")
-    List<InstructorDto> getStudentById() {
+    List<InstructorDto> allInstructors() {
         System.out.println("HERE IT IS");
         return instructorService.instructorList();
     }
-    @GetMapping("/all2")
-    List<CourseDto> getStudentById2() {
-        System.out.println("HERE IT IS");
-        return courseDateService.allTakenCourses();
+    @GetMapping("/accept-list")
+    List<CourseDto> acceptList(@RequestParam("email") String email){
+        return instructorService.coursesToAccept(email);
     }
 }

@@ -10,6 +10,7 @@ import com.backend.schedulingsystem.domain.repository.CoursesTakenRepository;
 import com.backend.schedulingsystem.domain.repository.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class CourseDateServiceImpl implements CourseDateService{
         courseList.stream().filter(course -> course.getCoursesTaken()==null);
         return courseList;
     }
+    @Transactional
     @Override
     public List<CourseDto> allTakenCourses(){
         List<Course> courseList = courseRepository.findAll();
@@ -48,6 +50,7 @@ public class CourseDateServiceImpl implements CourseDateService{
         });
         return courseDtoList;
     }
+    @Transactional
     public List<CourseDto> coursesInADate(Date date){
         List<Course> courseList = courseRepository.findAllByDate(date);
         List<CourseDto> courseDtos = new ArrayList<>();
@@ -66,6 +69,7 @@ public class CourseDateServiceImpl implements CourseDateService{
 //        return null;
 //
 //    }
+    @Transactional
     @Override
     public List<CourseDto> coursesInCurrentdate() throws ParseException {
         LocalDate localDate = LocalDate.now();

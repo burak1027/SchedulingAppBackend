@@ -25,6 +25,8 @@ public class Course {
     String langLvl;
     @Column(name = "topic")
     String topic;
+    @Column(name = "is_enrolled")
+    boolean isEnrolled;
     @ManyToOne
     @JoinColumn(name = "instructor_id",nullable = false)
     Instructor instructor;
@@ -93,5 +95,13 @@ public class Course {
 
     public CourseTaken getCoursesTaken() {
         return coursesTaken;
+    }
+
+    public boolean isEnrolled() {
+        return isEnrolled;
+    }
+
+    public void setEnrolled(boolean enrolled) {
+        isEnrolled = enrolled;
     }
 }

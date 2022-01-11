@@ -19,6 +19,7 @@ public class CourseMapper {
         courseDto.setTopic(course.getTopic());
         courseDto.setCourseTakenDto(CourseTakenMapper.entityToDto(course.getCoursesTaken()));
         courseDto.setInstructor(UserMapper.<InstructorDto>entityToDto(course.getInstructor(),new InstructorDto()));
+        courseDto.setEnrolled(course.isEnrolled());
         return courseDto;
     }
 }
