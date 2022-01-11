@@ -14,7 +14,7 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
     List<Course> findAllByDate(Date date);
 
     @Query("select a from Course a where a.date <= :endDate and a.date >= :startDate")
-    List<Course> findAllWithCreationDateTimeBefore(
+    List<Course> findAllWithinDates(
             @Param("startDate") Date creationDateTime,
             @Param("endDate") Date endDate);
 
