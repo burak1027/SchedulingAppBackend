@@ -16,7 +16,7 @@ public class CourseDto {
             ( pattern = "HH:mm",timezone ="Turkey")
     Date startTime;
     @JsonFormat
-            (shape=JsonFormat.Shape.STRING,pattern = "HH:mm", timezone="EST")
+            (pattern = "HH:mm", timezone="EST")
     Date endTime;
     String langLvl;
     String topic;
