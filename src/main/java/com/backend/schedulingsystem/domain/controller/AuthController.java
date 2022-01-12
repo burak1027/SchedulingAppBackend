@@ -58,7 +58,7 @@ public class AuthController {
 
     @PostMapping("/student-signup")
     public String signup(@RequestBody  StudentDto studentDto){
-       StudentDto student = studentService.getStudentByEmail(studentDto.getEmail());
+//       StudentDto student = studentService.getStudentByEmail(studentDto.getEmail());
        User user = userRepository.findUserByEmail(studentDto.getEmail());
         if(user==null){
             authService.signupStudent(studentDto.getName(),studentDto.getSurname(),studentDto.getEmail(),studentDto.getPassword());
@@ -71,7 +71,7 @@ public class AuthController {
     }
     @PostMapping("/instructor-signup")
     public String signupInstructor(@RequestBody  InstructorDto instructorDto){
-        InstructorDto instructor = instructorService.getInstructorByEmail(instructorDto.getEmail());
+//        InstructorDto instructor = instructorService.getInstructorByEmail(instructorDto.getEmail());
         User user = userRepository.findUserByEmail(instructorDto.getEmail());
         if(user==null){
             authService.signupInstructor(instructorDto.getName(),instructorDto.getSurname(),instructorDto.getEmail(),instructorDto.getPassword());
