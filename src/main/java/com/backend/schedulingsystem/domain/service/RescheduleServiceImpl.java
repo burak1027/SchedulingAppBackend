@@ -32,6 +32,17 @@ public class RescheduleServiceImpl implements RescheduleService{
         String email = rescheduleDto.getUserDto().getEmail();
         long id = rescheduleDto.getRequestedCourse().getId();
         Course course = courseRepository.findCourseById(id);
+
+        if(course.getCoursesTaken()==null){
+            course.setStartTime(rescheduleDto.getStartTime());
+            course.setEndTime(rescheduleDto.getEndTime());
+            course.setDate(course.getDate());
+            courseRepository.save(course);
+
+            return "Course rescheduled";
+        }
+
+
         Reschedule reschedule = rescheduleRepository.findRescheduleByRequestedCourse(course);
         User user = userRepository.findUserByEmail(email);
         if(course.getReschedule()!=null){
@@ -43,6 +54,7 @@ public class RescheduleServiceImpl implements RescheduleService{
             }
 
         }
+
 
         System.out.println("ID IS HERE ID IS "+id);
         rescheduleDto.setRequestedCourse(null);
