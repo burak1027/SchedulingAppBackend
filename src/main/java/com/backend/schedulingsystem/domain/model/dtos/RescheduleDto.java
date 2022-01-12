@@ -9,15 +9,14 @@ import java.util.Date;
 
 public class RescheduleDto {
     long id;
-
     @JsonFormat
-            (pattern = "yyyy-MM-dd")
+            (pattern = "yyyy-MM-dd",timezone ="Turkey")
     Date date;
     @JsonFormat
-            ( pattern = "HH:mm")
+            (pattern = "HH:mm",timezone ="Turkey")
     Date startTime;
     @JsonFormat
-            (pattern = "HH:mm")
+            (pattern = "HH:mm",timezone ="Turkey")
     Date endTime;
 
     CourseDto requestedCourse;

@@ -1,4 +1,8 @@
 spring:
+  jackson:
+    time-zone: Brazil/East
+    locale: pt-BR
+
   application:
     name: scheduling-backend
   jpa:

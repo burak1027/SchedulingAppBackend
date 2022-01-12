@@ -10,13 +10,13 @@ import java.util.Date;
 public class CourseDto {
     long id;
     @JsonFormat
-            (pattern = "yyyy-MM-dd")
+            (pattern = "yyyy-MM-dd", timezone ="Turkey")
     Date date;
     @JsonFormat
-            ( pattern = "HH:mm")
+            ( pattern = "HH:mm",timezone ="Turkey")
     Date startTime;
     @JsonFormat
-            (pattern = "HH:mm")
+            (shape=JsonFormat.Shape.STRING,pattern = "HH:mm", timezone="EST")
     Date endTime;
     String langLvl;
     String topic;
