@@ -28,17 +28,22 @@ public class RescheduleController {
     UserRepository userRepository;
     @PostMapping("/request")
     String rescheduleRequest(@RequestParam("time1") String time1,@RequestParam("time2") String time2,@RequestParam("date") String date,@RequestParam("courseId") long courseId,@RequestParam("email") String email) throws ParseException {
-        CourseDto courseDto = courseService.getCourseById(courseId);
-        if(courseDto.getRescheduleDto()!=null)
-            rescheduleService.deleteReschedule(courseDto.getRescheduleDto());
+
+
+
         RescheduleDto rescheduleDto = new RescheduleDto();
-        rescheduleDto.setRequestedCourse(courseDto);
         rescheduleDto.setDate( new SimpleDateFormat("yyyy-MM-dd").parse(date));
         rescheduleDto.setStartTime(new SimpleDateFormat("HH:mm").parse(time1));
         rescheduleDto.setEndTime(new SimpleDateFormat("HH:mm").parse(time2));
-        UserDto userDto = UserMapper.<UserDto>entityToDto(userRepository.findUserByEmail(email), new UserDto());
+//        UserDto userDto = UserMapper.<UserDto>entityToDto(userRepository.findUserByEmail(email), new UserDto());
+        UserDto userDto = new UserDto();
+        userDto.setEmail(email);
+        CourseDto courseDto = new CourseDto();
+        courseDto.setId(courseId);
+
         rescheduleDto.setUserDto(userDto);
-        System.out.println("COURSE INFO "+ courseDto.getTopic());
+        rescheduleDto.setRequestedCourse(courseDto);
+
         System.out.println(rescheduleDto.getRequestedCourse().getTopic());
 
         return rescheduleService.rescheduleRequest(rescheduleDto);

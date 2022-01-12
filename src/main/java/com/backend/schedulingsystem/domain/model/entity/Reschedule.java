@@ -30,6 +30,14 @@ public class Reschedule {
     @JoinColumn(name = "course_id")
     Course requestedCourse;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }

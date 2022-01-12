@@ -127,7 +127,7 @@ public class AuthServiceImpl implements AuthService {
     }
     @Transactional
     @Override
-    public Optional<Student> signupStudent(String name,String surname, String email, String password) {
+    public String signupStudent(String name,String surname, String email, String password) {
 
         LOGGER.info("New student attempting to sign up");
         Optional<Student>  user = Optional.ofNullable((studentRepository.findStudentByEmail(email)));
@@ -135,21 +135,24 @@ public class AuthServiceImpl implements AuthService {
         if (!user.isPresent()) {
             studentRepository.save(new Student(name,surname,email,password,false));
              user = Optional.of(studentRepository.findStudentByEmail(email));
+             return "success";
 
         }
-        return user;
+        return "user with given email already exists";
     }
     @Transactional
 
     @Override
-    public Optional<Instructor> signupInstructor(String name,String surname, String email, String password) {
+    public String signupInstructor(String name,String surname, String email, String password) {
         LOGGER.info("New student attempting to sign up");
         Optional<Instructor>  user = Optional.ofNullable((instructorRepository.findInstructorByEmail(email)));
         if (!user.isPresent()) {
             instructorRepository.save(new Instructor(name,surname,email,password,false));
             user = Optional.of(instructorRepository.findInstructorByEmail(email));
+            return "success";
+
 
         }
-        return user;
+        return "user with given email already exists";
     }
 }

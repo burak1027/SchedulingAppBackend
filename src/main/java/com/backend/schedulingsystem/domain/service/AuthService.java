@@ -12,8 +12,8 @@ public interface AuthService {
     Optional<String> signinInstructor(String username, String password);
     Optional<String> signinAdmin(String username, String password);
 
-    Optional<Student> signupStudent(String name,String surname, String email, String password);
-    Optional<Instructor> signupInstructor(String name,String surname, String email, String password);
+    String signupStudent(String name,String surname, String email, String password);
+    String signupInstructor(String name,String surname, String email, String password);
 
 
 

@@ -4,6 +4,7 @@ import com.backend.schedulingsystem.domain.mappers.RescheduleMapper;
 import com.backend.schedulingsystem.domain.model.dtos.RescheduleDto;
 import com.backend.schedulingsystem.domain.model.entity.Course;
 import com.backend.schedulingsystem.domain.model.entity.Reschedule;
+import com.backend.schedulingsystem.domain.model.entity.User;
 import com.backend.schedulingsystem.domain.repository.CourseRepository;
 import com.backend.schedulingsystem.domain.repository.RescheduleRepository;
 import com.backend.schedulingsystem.domain.repository.UserRepository;
@@ -21,16 +22,32 @@ public class RescheduleServiceImpl implements RescheduleService{
     @Autowired
     UserRepository userRepository;
 
+    @Transactional
     @Override
     public String rescheduleRequest(RescheduleDto rescheduleDto) {
         long id = rescheduleDto.getRequestedCourse().getId();
+        Course course = courseRepository.findCourseById(id);
+        Reschedule reschedule = rescheduleRepository.findRescheduleByRequestedCourse(course);
+        User user = userRepository.findUserByEmail(rescheduleDto.getUserDto().getEmail());
+        if(course.getReschedule()!=null){
+            if(reschedule.getUser().getEmail().equals(rescheduleDto.getUserDto().getEmail())){
+                rescheduleRepository.delete(course.getReschedule());
+            }
+            else{
+                return "There is a request pending for the course reschedule";
+            }
+
+        }
+
         System.out.println("ID IS HERE ID IS "+id);
         rescheduleDto.setRequestedCourse(null);
-        Course course = courseRepository.findCourseById(id);
-        Reschedule reschedule = RescheduleMapper.dtoToEntity(rescheduleDto);
-        reschedule.setRequestedCourse(course);
-        rescheduleRepository.save(reschedule);
-        return "";
+        rescheduleDto.setUserDto(null);
+
+        Reschedule reschedule2 = RescheduleMapper.dtoToEntity(rescheduleDto);
+        reschedule2.setRequestedCourse(course);
+        reschedule2.setUser(user);
+        rescheduleRepository.save(reschedule2);
+        return "request sent";
     }
 
     @Transactional

@@ -117,7 +117,7 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findStudentByEmail(email);
         List<CourseDto> courseDtos = new ArrayList<>();
         student.getCourses().forEach(course -> {
-            if(course.getCourse().getReschedule()!=null){
+            if(course.getCourse().getReschedule()!=null && !course.getCourse().getReschedule().getUser().getEmail().equals(email) ){
                 courseDtos.add(CourseMapper.entityToDto(course.getCourse()));
             }
         });
