@@ -21,7 +21,7 @@ public class Reschedule {
     @Column(name = "new_end_time")
     Date endTime;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 

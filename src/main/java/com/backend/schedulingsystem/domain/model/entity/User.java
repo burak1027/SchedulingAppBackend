@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 //@AllArgsConstructor
@@ -28,14 +29,14 @@ public class User {
     private String password;
     @Column (name = "is_active")
     private boolean isActive;
-    @OneToOne(mappedBy = "user")
-    Reschedule reschedule;
+    @OneToMany(mappedBy = "user")
+    List<Reschedule> reschedule;
 
-    public Reschedule getReschedule() {
+    public List<Reschedule> getReschedule() {
         return reschedule;
     }
 
-    public void setReschedule(Reschedule reschedule) {
+    public void setReschedule(List<Reschedule> reschedule) {
         this.reschedule = reschedule;
     }
 

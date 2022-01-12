@@ -3,6 +3,7 @@ package com.backend.schedulingsystem.domain.model.dtos;
 import com.backend.schedulingsystem.domain.model.entity.Reschedule;
 
 import javax.persistence.Column;
+import java.util.List;
 
 public class UserDto {
     private long id;
@@ -11,13 +12,13 @@ public class UserDto {
     private String email;
     private String Password;
     private boolean isActive;
-    RescheduleDto rescheduleDto;
+    List<RescheduleDto> rescheduleDto;
 
-    public RescheduleDto getRescheduleDto() {
+    public List<RescheduleDto> getRescheduleDto() {
         return rescheduleDto;
     }
 
-    public void setRescheduleDto(RescheduleDto rescheduleDto) {
+    public void setRescheduleDto(List<RescheduleDto> rescheduleDto) {
         this.rescheduleDto = rescheduleDto;
     }
 
