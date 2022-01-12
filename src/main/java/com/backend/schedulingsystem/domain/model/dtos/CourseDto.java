@@ -13,10 +13,10 @@ public class CourseDto {
             (pattern = "yyyy-MM-dd")
     Date date;
     @JsonFormat
-            ( pattern = "hh:mm:ss")
+            ( pattern = "hh:mm")
     Date startTime;
     @JsonFormat
-            (pattern = "hh:mm:ss")
+            (pattern = "hh:mm")
     Date endTime;
     String langLvl;
     String topic;
