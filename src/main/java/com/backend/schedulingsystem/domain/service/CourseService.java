@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 public interface CourseService {
     void CreateCourse(CourseDto courseDto,String email);
     void deleteCourse(long id);
+    CourseDto getCourseById(long id);
+    void deleteCourse(CourseDto courseDto);
 }

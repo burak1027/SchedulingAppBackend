@@ -136,5 +136,18 @@ public class InstructorServiceImpl implements InstructorService {
 
     }
 
+    @Override
+    public List<CourseDto> getRescheduleRequests(String email) {
+        Instructor instructor = instructorRepository.findInstructorByEmail(email);
+        List<CourseDto> courseDtos = new ArrayList<>();
+        instructor.getCourseList().forEach(course -> {
+            if(course.getReschedule()!=null){
+                courseDtos.add(CourseMapper.entityToDto(course));
+            }
+        });
+
+        return courseDtos;
+    }
+
 
 }

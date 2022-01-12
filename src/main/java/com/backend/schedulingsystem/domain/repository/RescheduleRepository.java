@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface RescheduleRepository extends JpaRepository<Reschedule,Long> {
-    List<Reschedule> findAllByRequestedCourse(Course course);
+    Reschedule findRescheduleByRequestedCourse(Course course);
+
 
 
 }

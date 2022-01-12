@@ -18,6 +18,8 @@ public interface StudentService {
     Optional<String> signin(String username, String password);
 
     List<CourseDto> coursesEnrolledByAStudent(String username);
+    List<CourseDto> getRescheduleRequests(String email);
+
 
 
 

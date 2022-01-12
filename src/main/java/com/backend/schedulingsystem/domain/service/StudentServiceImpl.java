@@ -3,6 +3,7 @@ package com.backend.schedulingsystem.domain.service;
 import com.backend.schedulingsystem.domain.mappers.CourseMapper;
 import com.backend.schedulingsystem.domain.model.dtos.CourseDto;
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
+import com.backend.schedulingsystem.domain.model.entity.Instructor;
 import com.backend.schedulingsystem.domain.model.entity.Student;
 import com.backend.schedulingsystem.domain.repository.StudentRepository;
 import com.backend.schedulingsystem.domain.mappers.UserMapper;
@@ -108,6 +109,19 @@ public class StudentServiceImpl implements StudentService {
                 courseDtos.add(CourseMapper.entityToDto(courseTaken.getCourse()));
             }
         });
+        return courseDtos;
+    }
+
+    @Override
+    public List<CourseDto> getRescheduleRequests(String email) {
+        Student student = studentRepository.findStudentByEmail(email);
+        List<CourseDto> courseDtos = new ArrayList<>();
+        student.getCourses().forEach(course -> {
+            if(course.getCourse().getReschedule()!=null){
+                courseDtos.add(CourseMapper.entityToDto(course.getCourse()));
+            }
+        });
+
         return courseDtos;
     }
 }
