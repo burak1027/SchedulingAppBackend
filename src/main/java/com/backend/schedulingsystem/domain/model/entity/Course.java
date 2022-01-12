@@ -32,6 +32,8 @@ public class Course {
     Instructor instructor;
     @OneToOne(mappedBy = "course")
     CourseTaken coursesTaken;
+    @OneToOne(mappedBy = "requestedCourse")
+    Reschedule reschedule;
 
     public void setId(long id) {
         this.id = id;
@@ -103,5 +105,13 @@ public class Course {
 
     public void setEnrolled(boolean enrolled) {
         isEnrolled = enrolled;
+    }
+
+    public Reschedule getReschedule() {
+        return reschedule;
+    }
+
+    public void setReschedule(Reschedule reschedule) {
+        this.reschedule = reschedule;
     }
 }

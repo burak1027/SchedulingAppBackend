@@ -22,6 +22,7 @@ public class CourseDto {
     String topic;
     InstructorDto instructor;
     CourseTakenDto courseTakenDto;
+    RescheduleDto rescheduleDto;
     boolean isEnrolled;
 
     public boolean isEnrolled() {
@@ -94,5 +95,13 @@ public class CourseDto {
 
     public CourseTakenDto getCourseTakenDto() {
         return courseTakenDto;
+    }
+
+    public RescheduleDto getRescheduleDto() {
+        return rescheduleDto;
+    }
+
+    public void setRescheduleDto(RescheduleDto rescheduleDto) {
+        this.rescheduleDto = rescheduleDto;
     }
 }

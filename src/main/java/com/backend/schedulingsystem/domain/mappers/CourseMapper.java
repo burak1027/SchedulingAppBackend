@@ -21,6 +21,7 @@ public class CourseMapper {
         courseDto.setCourseTakenDto(CourseTakenMapper.entityToDto(course.getCoursesTaken()));
         courseDto.setInstructor(UserMapper.<InstructorDto>entityToDto(course.getInstructor(),new InstructorDto()));
         courseDto.setEnrolled(course.isEnrolled());
+        courseDto.setRescheduleDto(RescheduleMapper.entityToDto(course.getReschedule()));
         return courseDto;
     }
     public static Course dtoToEntity (CourseDto courseDto){
@@ -36,6 +37,7 @@ public class CourseMapper {
         course.setCoursesTaken(CourseTakenMapper.entityToDto(courseDto.getCourseTakenDto()));
         course.setInstructor(UserMapper.<Instructor>dtoToEntity(courseDto.getInstructor(),new Instructor()));
         course.setEnrolled(course.isEnrolled());
+        course.setReschedule(RescheduleMapper.dtoToEntity(courseDto.getRescheduleDto()));
         return course;
     }
 }
