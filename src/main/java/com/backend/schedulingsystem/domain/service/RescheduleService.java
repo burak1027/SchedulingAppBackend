@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public interface RescheduleService {
 
-    String  rescheduleRequest(RescheduleDto rescheduleDto);
+    String rescheduleRequest(RescheduleDto rescheduleDto);
     void deleteReschedule(RescheduleDto rescheduleDto);
+    void acceptReschedule(long courseId,boolean isAccepted);
 }

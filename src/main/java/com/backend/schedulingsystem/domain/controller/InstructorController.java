@@ -39,4 +39,8 @@ public class InstructorController {
         System.out.println("Inside controller");
         return instructorService.createCourse(courseCreateDto.getCourseDto(),courseCreateDto.getEmail());
     }
+    @GetMapping("/rescheduled-courses")
+    List<CourseDto> getRescheduleRequests(String email){
+        return instructorService.getRescheduleRequests(email);
+    }
 }

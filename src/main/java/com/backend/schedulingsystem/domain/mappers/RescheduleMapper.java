@@ -14,7 +14,7 @@ public class RescheduleMapper {
         rescheduleDto.setStartTime(reschedule.getStartTime());
         rescheduleDto.setDate(reschedule.getDate());
         rescheduleDto.setId(reschedule.getId());
-        rescheduleDto.setRequestedCourse(CourseMapper.entityToDto(reschedule.getRequestedCourse()));
+//        rescheduleDto.setRequestedCourse(CourseMapper.entityToDto(reschedule.getRequestedCourse()));
         return rescheduleDto;
     }
     public static Reschedule dtoToEntity(RescheduleDto rescheduleDto){
@@ -26,7 +26,7 @@ public class RescheduleMapper {
         reschedule.setStartTime(rescheduleDto.getStartTime());
         reschedule.setDate(rescheduleDto.getDate());
         reschedule.setId(rescheduleDto.getId());
-        reschedule.setRequestedCourse(CourseMapper.dtoToEntity(rescheduleDto.getRequestedCourse()));
+//        reschedule.setRequestedCourse(CourseMapper.dtoToEntity(rescheduleDto.getRequestedCourse()));
         return reschedule;
     }
 

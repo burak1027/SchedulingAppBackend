@@ -69,6 +69,9 @@ public class StudentController {
     List<CourseDto> getCourses(@RequestParam("email")String email){
         return studentService.coursesEnrolledByAStudent(email);
     }
-
+    @GetMapping("/rescheduled-courses")
+    List<CourseDto> getRescheduleRequests(String email){
+        return studentService.getRescheduleRequests(email);
+    }
 
 }

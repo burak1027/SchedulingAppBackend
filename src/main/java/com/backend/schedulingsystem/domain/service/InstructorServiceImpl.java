@@ -85,7 +85,7 @@ public class InstructorServiceImpl implements InstructorService {
         instructors.forEach(instructor -> {
             List<CourseDto> activeCourses = new ArrayList<>();
             instructor.getCourseList().forEach(course -> {
-                if(course.getCoursesTaken()==null){
+                if(course.getCoursesTaken()!=null&& !course.isEnrolled()){
                     activeCourses.add(CourseMapper.entityToDto(course));
                 }
             });

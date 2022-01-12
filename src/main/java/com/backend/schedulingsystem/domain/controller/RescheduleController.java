@@ -22,21 +22,23 @@ public class RescheduleController {
     @Autowired
     CourseService courseService;
     @PostMapping("/request")
-    String resReq(@RequestParam("time1") String time1,@RequestParam("time2") String time2,@RequestParam("date") String date,@RequestParam("courseId") long courseId) throws ParseException {
+    String rescheduleRequest(@RequestParam("time1") String time1,@RequestParam("time2") String time2,@RequestParam("date") String date,@RequestParam("courseId") long courseId) throws ParseException {
         CourseDto courseDto = courseService.getCourseById(courseId);
         if(courseDto.getRescheduleDto()!=null)
             rescheduleService.deleteReschedule(courseDto.getRescheduleDto());
         RescheduleDto rescheduleDto = new RescheduleDto();
         rescheduleDto.setRequestedCourse(courseDto);
         rescheduleDto.setDate( new SimpleDateFormat("yyyy-MM-dd").parse(date));
-        rescheduleDto.setStartTime(new SimpleDateFormat("hh:mm").parse(time1));
-        rescheduleDto.setEndTime(new SimpleDateFormat("hh:mm").parse(time2));
+        rescheduleDto.setStartTime(new SimpleDateFormat("HH:mm").parse(time1));
+        rescheduleDto.setEndTime(new SimpleDateFormat("HH:mm").parse(time2));
+        System.out.println("COURSE INFO "+ courseDto.getTopic());
+        System.out.println(rescheduleDto.getRequestedCourse().getTopic());
 
         return rescheduleService.rescheduleRequest(rescheduleDto);
 
     }
     @PostMapping("/accept")
-    void accept(@RequestParam("courseId")long courseId){
-        
+    void accept(@RequestParam("courseId")long courseId,@RequestParam("isAccepted")boolean isAccepted){
+        rescheduleService.acceptReschedule(courseId,isAccepted);
     }
 }
