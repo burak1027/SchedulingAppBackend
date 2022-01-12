@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/student")
-@CrossOrigin(origins = "http://localhost:8080")
 public class StudentController {
 
     @Autowired
@@ -67,8 +66,8 @@ public class StudentController {
         return studentService.signin(email,password);
     }
     @GetMapping("/courses")
-    List<CourseDto> getCourses(@RequestParam("email")String email,@RequestParam("email")long courseId){
-        return studentService.coursesEnrolledByAStudent(email,courseId);
+    List<CourseDto> getCourses(@RequestParam("email")String email){
+        return studentService.coursesEnrolledByAStudent(email);
     }
 
 

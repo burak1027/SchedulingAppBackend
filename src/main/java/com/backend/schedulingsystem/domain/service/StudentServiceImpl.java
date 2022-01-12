@@ -100,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<CourseDto> coursesEnrolledByAStudent(String username, long id) {
+    public List<CourseDto> coursesEnrolledByAStudent(String username) {
         Student student = studentRepository.findStudentByEmail(username);
         List<CourseDto> courseDtos = new ArrayList<>();
         student.getCourses().forEach(courseTaken -> {

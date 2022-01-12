@@ -65,7 +65,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public List<CourseDto> coursesGivenByInstructor(String email, long courseId) {
+    public List<CourseDto> coursesGivenByInstructor(String email) {
         Instructor instructor =  instructorRepository.findInstructorByEmail(email);
         List<CourseDto> courseDtos = new ArrayList<>();
         instructor.getCourseList().forEach(course -> {

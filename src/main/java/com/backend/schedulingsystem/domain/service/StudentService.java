@@ -17,7 +17,7 @@ public interface StudentService {
     void updateStudent(StudentDto studentDto);
     Optional<String> signin(String username, String password);
 
-    List<CourseDto> coursesEnrolledByAStudent(String username, long id);
+    List<CourseDto> coursesEnrolledByAStudent(String username);
 
 
 

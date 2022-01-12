@@ -17,7 +17,7 @@ public interface InstructorService {
     void deleteInstructor(InstructorDto instructorDto);
     void updateInstructor(InstructorDto instructorDto);
     List<Course> coursesGiven(long id);
-    List<CourseDto> coursesGivenByInstructor(String email, long courseId);
+    List<CourseDto> coursesGivenByInstructor(String email);
     List<InstructorDto> instructorList();
     List<CourseDto> coursesToAccept(String email);
     void cancelCourse(String email, long id);

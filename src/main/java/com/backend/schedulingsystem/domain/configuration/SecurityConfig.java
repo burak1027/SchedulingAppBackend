@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
     @Configuration
     @Order(1)
@@ -31,11 +32,11 @@ public class SecurityConfig {
 
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-            provider.setUserDetailsService(studentUserDetailsService);
-            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-            auth.authenticationProvider(provider);
-//            auth.userDetailsService(studentUserDetailsService);
+//            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//            provider.setUserDetailsService(studentUserDetailsService);
+//            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+//            auth.authenticationProvider(provider);
+            auth.userDetailsService(studentUserDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());;
 
         }
         @Bean
@@ -52,9 +53,13 @@ public class SecurityConfig {
 //            customAuthenticationFilter.setFilterProcessesUrl("/login");
             http.csrf().disable();
 //            http.authorizeRequests().antMatchers("/student").hasRole("STUDENT");
-            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("STUDENT");
-
+            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("STUDENT","INSTRUCTOR");
+            http.authorizeRequests().antMatchers("/instructor/accept-list").hasAnyAuthority("INSTRUCTOR");
+            http.authorizeRequests().antMatchers("/instructor/all").hasAnyAuthority("INSTRUCTOR");
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            http.authorizeRequests().antMatchers("/course-date/all**").hasAnyAuthority("ADMIN");
+            http.authorizeRequests().antMatchers("/course-date/period**").hasAnyAuthority("ADMIN");
+
 
 //            http.authorizeRequests().anyRequest().authenticated();
 
@@ -78,11 +83,11 @@ public class SecurityConfig {
         InstructorUserDetailsService instructorUserDetailsService;
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-            provider.setUserDetailsService(instructorUserDetailsService);
-            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-            auth.authenticationProvider(provider);
-//            auth.userDetailsService(instructorUserDetailsService);
+//            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//            provider.setUserDetailsService(instructorUserDetailsService);
+//            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+//            auth.authenticationProvider(provider);
+            auth.userDetailsService(instructorUserDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());
         }
         @Bean
         public GrantedAuthoritiesMapper authoritiesMapper2(){
@@ -95,9 +100,6 @@ public class SecurityConfig {
             http.csrf().disable();
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("INSTRUCTOR");
-            http.authorizeRequests().antMatchers("/instructor/accept-list").hasAnyAuthority("INSTRUCTOR");
-            http.authorizeRequests().antMatchers("/instructor/all").hasAnyAuthority("INSTRUCTOR");
-
 
             http.addFilterBefore(new JwtTokenFilter(null,instructorUserDetailsService,null), UsernamePasswordAuthenticationFilter.class);
         }
@@ -119,11 +121,11 @@ public class SecurityConfig {
         AdminUserDetailsService adminUserDetailsService;
         @Override
         protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-            provider.setUserDetailsService(adminUserDetailsService);
-            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-            auth.authenticationProvider(provider);
-//            auth.userDetailsService(instructorUserDetailsService);
+//            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//            provider.setUserDetailsService(adminUserDetailsService);
+//            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+//            auth.authenticationProvider(provider);
+            auth.userDetailsService(adminUserDetailsService).passwordEncoder(NoOpPasswordEncoder.getInstance());;
         }
         @Bean
         public GrantedAuthoritiesMapper authoritiesMapper3(){
@@ -136,9 +138,6 @@ public class SecurityConfig {
             http.csrf().disable();
             http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("ADMIN");
-            http.authorizeRequests().antMatchers("/course-date/all**").hasAnyAuthority("ADMIN");
-            http.authorizeRequests().antMatchers("/course-date/period**").hasAnyAuthority("ADMIN");
-
 
             http.addFilterBefore(new JwtTokenFilter(null,null,adminUserDetailsService), UsernamePasswordAuthenticationFilter.class);
         }

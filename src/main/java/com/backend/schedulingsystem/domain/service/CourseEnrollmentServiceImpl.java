@@ -69,6 +69,7 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     public void cancelCourseStudent(long courseId, String studentEmail) {
         Course course = courseRepository.findCourseById(courseId);
         if(studentEmail.equals(course.getCoursesTaken().getStudent().getEmail())){
+            course.setEnrolled(false);
             coursesTakenRepository.delete(course.getCoursesTaken());
         }
     }
@@ -77,7 +78,8 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     public void cancelCourseInstructor(long courseId, String instructorEmail) {
         Course course = courseRepository.findCourseById(courseId);
         if(instructorEmail.equals(course.getInstructor().getEmail())){
-            coursesTakenRepository.delete(course.getCoursesTaken());
+            if(course.getCoursesTaken()!=null)
+                coursesTakenRepository.delete(course.getCoursesTaken());
             courseRepository.delete(course);
         }
 
