@@ -39,7 +39,8 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
         if(coursesTakenRepository.findAllByCourseAndStudent(course,student).isEmpty()){
             coursesTakenRepository.save(coursesTaken);
             String message = String.format("Your course %s is wanted to be enrolled by %s.",course.getTopic(),studentMail);
-//        emailSenderService.sendEmail(course.getInstructor().getEmail(),message,"Course enrollment");
+            emailSenderService.sendEmail(course.getInstructor().getEmail(),message,"Course enrollment");
+            //TODO
 
         }
 
@@ -90,11 +91,19 @@ public class CourseEnrollmentServiceImpl implements CourseEnrollmentService {
     @Override
     public void acceptTheCourse(long courseId, boolean isAccepted){
         Course course = courseRepository.findCourseById(courseId);
+        String email = course.getCoursesTaken().getStudent().getEmail();
         if(isAccepted){
             course.setEnrolled(true);
+            //TODO
+            String message= String.format("Your request to enroll for course %s is accepted!",course.getTopic());
+            emailSenderService.sendEmail(email,message,"Scheduling Acceptance");
         }
         else{
             coursesTakenRepository.delete(course.getCoursesTaken());
+            //TODO
+            String message= String.format("Your request to enroll for course %s is not accepted!",course.getTopic());
+            emailSenderService.sendEmail(email,message,"Scheduling Acceptance");
+
         }
     }
 

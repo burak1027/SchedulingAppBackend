@@ -20,8 +20,9 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: burak.b.gunden@gmail.com
-    password:
+    username: projectwebmef@gmail.com
+    password: mxzbaitktmoupfvj
+
 
     properties:
       mail:
