@@ -1,6 +1,7 @@
 package com.backend.schedulingsystem.domain.model.dtos;
 
 import com.backend.schedulingsystem.domain.model.entity.Course;
+import com.backend.schedulingsystem.domain.model.entity.User;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -13,13 +14,23 @@ public class RescheduleDto {
             (pattern = "yyyy-MM-dd")
     Date date;
     @JsonFormat
-            ( pattern = "hh:mm")
+            ( pattern = "HH:mm")
     Date startTime;
     @JsonFormat
-            (pattern = "hh:mm")
+            (pattern = "HH:mm")
     Date endTime;
 
     CourseDto requestedCourse;
+
+    UserDto userDto;
+
+    public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
+    }
 
     public long getId() {
         return id;

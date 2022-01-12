@@ -22,6 +22,11 @@ public class Reschedule {
     Date endTime;
 
     @OneToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+
+    @OneToOne
     @JoinColumn(name = "course_id")
     Course requestedCourse;
 

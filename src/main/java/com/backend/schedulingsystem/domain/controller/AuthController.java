@@ -5,6 +5,8 @@ import com.backend.schedulingsystem.domain.model.dtos.InstructorDto;
 import com.backend.schedulingsystem.domain.model.dtos.StudentDto;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
 import com.backend.schedulingsystem.domain.model.entity.Student;
+import com.backend.schedulingsystem.domain.model.entity.User;
+import com.backend.schedulingsystem.domain.repository.UserRepository;
 import com.backend.schedulingsystem.domain.service.AuthService;
 import com.backend.schedulingsystem.domain.service.InstructorService;
 import com.backend.schedulingsystem.domain.service.StudentService;
@@ -27,6 +29,8 @@ public class AuthController {
     StudentService studentService;
     @Autowired
     InstructorService instructorService;
+    @Autowired
+    UserRepository userRepository;
 
     @PostMapping("/student-signin")
     @ResponseBody
@@ -55,7 +59,8 @@ public class AuthController {
     @PostMapping("/student-signup")
     public String signup(@RequestBody  StudentDto studentDto){
        StudentDto student = studentService.getStudentByEmail(studentDto.getEmail());
-        if(student==null){
+       User user = userRepository.findUserByEmail(studentDto.getEmail());
+        if(user==null){
             authService.signupStudent(studentDto.getName(),studentDto.getSurname(),studentDto.getEmail(),studentDto.getPassword());
             return "success";
         }
@@ -67,7 +72,8 @@ public class AuthController {
     @PostMapping("/instructor-signup")
     public String signupInstructor(@RequestBody  InstructorDto instructorDto){
         InstructorDto instructor = instructorService.getInstructorByEmail(instructorDto.getEmail());
-        if(instructor==null){
+        User user = userRepository.findUserByEmail(instructorDto.getEmail());
+        if(user==null){
             authService.signupInstructor(instructorDto.getName(),instructorDto.getSurname(),instructorDto.getEmail(),instructorDto.getPassword());
             return "success";
         }else{

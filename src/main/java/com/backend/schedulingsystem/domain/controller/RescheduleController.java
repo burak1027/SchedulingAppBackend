@@ -1,7 +1,10 @@
 package com.backend.schedulingsystem.domain.controller;
 
+import com.backend.schedulingsystem.domain.mappers.UserMapper;
 import com.backend.schedulingsystem.domain.model.dtos.CourseDto;
 import com.backend.schedulingsystem.domain.model.dtos.RescheduleDto;
+import com.backend.schedulingsystem.domain.model.dtos.UserDto;
+import com.backend.schedulingsystem.domain.repository.UserRepository;
 import com.backend.schedulingsystem.domain.service.CourseService;
 import com.backend.schedulingsystem.domain.service.RescheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +24,10 @@ public class RescheduleController {
     RescheduleService rescheduleService;
     @Autowired
     CourseService courseService;
+    @Autowired
+    UserRepository userRepository;
     @PostMapping("/request")
-    String rescheduleRequest(@RequestParam("time1") String time1,@RequestParam("time2") String time2,@RequestParam("date") String date,@RequestParam("courseId") long courseId) throws ParseException {
+    String rescheduleRequest(@RequestParam("time1") String time1,@RequestParam("time2") String time2,@RequestParam("date") String date,@RequestParam("courseId") long courseId,@RequestParam("email") String email) throws ParseException {
         CourseDto courseDto = courseService.getCourseById(courseId);
         if(courseDto.getRescheduleDto()!=null)
             rescheduleService.deleteReschedule(courseDto.getRescheduleDto());
@@ -31,6 +36,8 @@ public class RescheduleController {
         rescheduleDto.setDate( new SimpleDateFormat("yyyy-MM-dd").parse(date));
         rescheduleDto.setStartTime(new SimpleDateFormat("HH:mm").parse(time1));
         rescheduleDto.setEndTime(new SimpleDateFormat("HH:mm").parse(time2));
+        UserDto userDto = UserMapper.<UserDto>entityToDto(userRepository.findUserByEmail(email), new UserDto());
+        rescheduleDto.setUserDto(userDto);
         System.out.println("COURSE INFO "+ courseDto.getTopic());
         System.out.println(rescheduleDto.getRequestedCourse().getTopic());
 

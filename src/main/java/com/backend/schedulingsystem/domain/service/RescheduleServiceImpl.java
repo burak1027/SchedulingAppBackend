@@ -6,6 +6,7 @@ import com.backend.schedulingsystem.domain.model.entity.Course;
 import com.backend.schedulingsystem.domain.model.entity.Reschedule;
 import com.backend.schedulingsystem.domain.repository.CourseRepository;
 import com.backend.schedulingsystem.domain.repository.RescheduleRepository;
+import com.backend.schedulingsystem.domain.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,8 @@ public class RescheduleServiceImpl implements RescheduleService{
     RescheduleRepository rescheduleRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public String rescheduleRequest(RescheduleDto rescheduleDto) {

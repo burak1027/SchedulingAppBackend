@@ -1,5 +1,7 @@
 package com.backend.schedulingsystem.domain.model.dtos;
 
+import com.backend.schedulingsystem.domain.model.entity.Reschedule;
+
 import javax.persistence.Column;
 
 public class UserDto {
@@ -9,6 +11,15 @@ public class UserDto {
     private String email;
     private String Password;
     private boolean isActive;
+    RescheduleDto rescheduleDto;
+
+    public RescheduleDto getRescheduleDto() {
+        return rescheduleDto;
+    }
+
+    public void setRescheduleDto(RescheduleDto rescheduleDto) {
+        this.rescheduleDto = rescheduleDto;
+    }
 
     public long getId() {
         return id;

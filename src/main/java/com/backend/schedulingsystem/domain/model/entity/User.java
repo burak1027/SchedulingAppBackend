@@ -28,6 +28,16 @@ public class User {
     private String password;
     @Column (name = "is_active")
     private boolean isActive;
+    @OneToOne(mappedBy = "user")
+    Reschedule reschedule;
+
+    public Reschedule getReschedule() {
+        return reschedule;
+    }
+
+    public void setReschedule(Reschedule reschedule) {
+        this.reschedule = reschedule;
+    }
 
     public long getId() {
         return id;
