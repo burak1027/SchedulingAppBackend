@@ -14,4 +14,12 @@ public class CourseTakenMapper {
         courseTakenDto.setStudent(UserMapper.<StudentDto>entityToDto(courseTaken.getStudent(),new StudentDto()));
         return courseTakenDto;
     }
+    public static CourseTaken entityToDto(CourseTakenDto courseTakenDto){
+        if(courseTakenDto == null)
+            return null;
+        CourseTaken courseTaken = new CourseTaken();
+        courseTakenDto.setId(courseTaken.getId());
+        courseTakenDto.setStudent(UserMapper.<StudentDto>entityToDto(courseTaken.getStudent(),new StudentDto()));
+        return courseTaken;
+    }
 }

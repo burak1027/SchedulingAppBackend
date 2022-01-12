@@ -5,6 +5,7 @@ import com.backend.schedulingsystem.domain.model.dtos.CourseDto;
 import com.backend.schedulingsystem.domain.model.dtos.InstructorDto;
 import com.backend.schedulingsystem.domain.model.entity.Course;
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
+import com.backend.schedulingsystem.domain.repository.CourseRepository;
 import com.backend.schedulingsystem.domain.repository.InstructorRepository;
 import com.backend.schedulingsystem.domain.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,8 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Autowired
     InstructorRepository instructorRepository;
-
+    @Autowired
+    CourseRepository courseRepository;
     @Transactional(readOnly = true)
     @Override
     public InstructorDto getInstructorById(long id) {
@@ -109,6 +111,28 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Override
     public void cancelCourse(String email, long id) {
+
+    }
+
+    @Override
+    public String createCourse(CourseDto courseDto,String email){
+
+        Instructor instructor = instructorRepository.findInstructorByEmail(email);
+        courseDto.setInstructor(UserMapper.<InstructorDto>entityToDto(instructor,new InstructorDto()));
+        List<Course> courses = courseRepository.findAllWithinHours(courseDto.getStartTime(),courseDto.getEndTime(),courseDto.getDate());
+
+        for(Course course: courses){
+            if(course.getInstructor().getEmail().equals(instructor.getEmail())){
+                return "A course exists within the given time period";
+            }
+        }
+
+        courseDto.setEnrolled(false);
+
+        Course course = CourseMapper.dtoToEntity(courseDto);
+        courseRepository.save(course);
+        return "success";
+
 
     }
 

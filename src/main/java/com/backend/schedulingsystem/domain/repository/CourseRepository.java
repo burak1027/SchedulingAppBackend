@@ -15,8 +15,13 @@ public interface CourseRepository extends JpaRepository<Course,Long> {
 
     @Query("select a from Course a where a.date <= :endDate and a.date >= :startDate")
     List<Course> findAllWithinDates(
-            @Param("startDate") Date creationDateTime,
+            @Param("startDate") Date startDate,
             @Param("endDate") Date endDate);
+    @Query("select a from Course a where a.startTime >= :startTime and a.endTime <= :endTime and  a.date = :currentDate")
+    List<Course> findAllWithinHours(
+            @Param("startTime") Date startTime,
+            @Param("endTime") Date endTime,
+            @Param("currentDate") Date currentDate);
 
 //    List<Course> findAllByStartDateLessThanEqualAndEndDateGreaterThanEqual(Time endDate, Time startDate);
 }

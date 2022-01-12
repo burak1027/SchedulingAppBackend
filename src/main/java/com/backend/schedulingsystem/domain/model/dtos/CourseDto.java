@@ -1,6 +1,7 @@
 package com.backend.schedulingsystem.domain.model.dtos;
 
 import com.backend.schedulingsystem.domain.model.entity.Instructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Time;
 import java.time.LocalDate;
@@ -8,8 +9,14 @@ import java.util.Date;
 
 public class CourseDto {
     long id;
+    @JsonFormat
+            (pattern = "yyyy-MM-dd")
     Date date;
+    @JsonFormat
+            ( pattern = "hh:mm:ss")
     Date startTime;
+    @JsonFormat
+            (pattern = "hh:mm:ss")
     Date endTime;
     String langLvl;
     String topic;

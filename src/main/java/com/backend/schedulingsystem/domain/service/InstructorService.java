@@ -21,5 +21,6 @@ public interface InstructorService {
     List<InstructorDto> instructorList();
     List<CourseDto> coursesToAccept(String email);
     void cancelCourse(String email, long id);
+    String createCourse(CourseDto courseDto,String email);
 
 }

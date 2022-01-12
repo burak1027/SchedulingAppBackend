@@ -53,12 +53,12 @@ public class SecurityConfig {
 //            customAuthenticationFilter.setFilterProcessesUrl("/login");
             http.csrf().disable();
 //            http.authorizeRequests().antMatchers("/student").hasRole("STUDENT");
-            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("STUDENT","INSTRUCTOR");
-            http.authorizeRequests().antMatchers("/instructor/accept-list").hasAnyAuthority("INSTRUCTOR");
-            http.authorizeRequests().antMatchers("/instructor/all").hasAnyAuthority("INSTRUCTOR");
-            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-            http.authorizeRequests().antMatchers("/course-date/all**").hasAnyAuthority("ADMIN");
-            http.authorizeRequests().antMatchers("/course-date/period**").hasAnyAuthority("ADMIN");
+//            http.authorizeRequests().antMatchers("/student/hello").hasAnyAuthority("STUDENT","INSTRUCTOR");
+//            http.authorizeRequests().antMatchers("/instructor/accept-list").hasAnyAuthority("INSTRUCTOR");
+//            http.authorizeRequests().antMatchers("/instructor/all").hasAnyAuthority("INSTRUCTOR");
+//            http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//            http.authorizeRequests().antMatchers("/course-date/all**").hasAnyAuthority("ADMIN");
+//            http.authorizeRequests().antMatchers("/course-date/period**").hasAnyAuthority("ADMIN");
 
 
 //            http.authorizeRequests().anyRequest().authenticated();
