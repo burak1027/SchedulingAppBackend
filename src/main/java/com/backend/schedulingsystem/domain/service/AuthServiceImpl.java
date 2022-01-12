@@ -146,7 +146,7 @@ public class AuthServiceImpl implements AuthService {
         LOGGER.info("New student attempting to sign up");
         Optional<Instructor>  user = Optional.ofNullable((instructorRepository.findInstructorByEmail(email)));
         if (!user.isPresent()) {
-            studentRepository.save(new Student(name,surname,email,password,false));
+            instructorRepository.save(new Instructor(name,surname,email,password,false));
             user = Optional.of(instructorRepository.findInstructorByEmail(email));
 
         }

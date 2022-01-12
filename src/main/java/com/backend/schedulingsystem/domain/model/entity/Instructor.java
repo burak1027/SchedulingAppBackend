@@ -18,4 +18,11 @@ public class Instructor extends User {
     public List<Course> getCourseList() {
         return courseList;
     }
+    public Instructor(String name, String surname, String email, String password, boolean b) {
+        super(name,surname,email,password,false);
+    }
+
+    public Instructor() {
+
+    }
 }
