@@ -76,7 +76,7 @@ public class RescheduleServiceImpl implements RescheduleService{
             receiverEmail = course.getInstructor().getEmail();
         }
         String message= String.format("There is a request pending for the course %s",course.getTopic());
-//        emailSenderService.sendEmail(receiverEmail,message,"Re-Scheduling request");
+        emailSenderService.sendEmail(receiverEmail,message,"Re-Scheduling request");
 
         return "request sent";
     }
@@ -105,14 +105,14 @@ public class RescheduleServiceImpl implements RescheduleService{
             course.setStartTime(reschedule.getStartTime());
             //TODO
             String message= String.format("Your request to reschedule for course %s is accepted!",course.getTopic());
-//            emailSenderService.sendEmail(email,message,"Scheduling Acceptance");
+            emailSenderService.sendEmail(email,message,"Scheduling Acceptance");
 
 
         }
         else{
             //TODO
             String message= String.format("Your request to reschedule for course %s is not accepted!",course.getTopic());
-//            emailSenderService.sendEmail(email,message,"Scheduling Acceptance");
+            emailSenderService.sendEmail(email,message,"Scheduling Acceptance");
         }
         rescheduleRepository.delete(course.getReschedule());
 

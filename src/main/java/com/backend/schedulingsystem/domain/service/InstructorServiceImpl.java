@@ -91,7 +91,7 @@ public class InstructorServiceImpl implements InstructorService {
         instructors.forEach(instructor -> {
             List<CourseDto> activeCourses = new ArrayList<>();
             instructor.getCourseList().forEach(course -> {
-                if(course.getCoursesTaken()!=null&& !course.isEnrolled()){
+                if(course.getCoursesTaken()==null || !course.isEnrolled()){
                     LocalDate localDate = LocalDate.now();
                     LocalTime time = LocalTime.now();
                     String t = time.format(DateTimeFormatter.ofPattern("HH:mm"));
