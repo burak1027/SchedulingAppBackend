@@ -9,6 +9,7 @@ import com.backend.schedulingsystem.domain.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class InstructorController {
 //    @Autowired
 //    CourseService courseService;
     @GetMapping("/all")
-    List<InstructorDto> allInstructors() {
+    List<InstructorDto> allInstructors() throws ParseException {
         System.out.println("HERE IT IS");
         return instructorService.instructorList();
     }

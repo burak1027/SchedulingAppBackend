@@ -12,7 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -79,14 +85,32 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Transactional
     @Override
-    public List<InstructorDto> instructorList() {
+    public List<InstructorDto> instructorList() throws ParseException {
         List<Instructor> instructors = instructorRepository.findAll();
         List<InstructorDto> instructorDtos = new ArrayList<>();
         instructors.forEach(instructor -> {
             List<CourseDto> activeCourses = new ArrayList<>();
             instructor.getCourseList().forEach(course -> {
                 if(course.getCoursesTaken()!=null&& !course.isEnrolled()){
-                    activeCourses.add(CourseMapper.entityToDto(course));
+                    LocalDate localDate = LocalDate.now();
+                    LocalTime time = LocalTime.now();
+                    String t = time.format(DateTimeFormatter.ofPattern("HH:mm"));
+                    Date date = null;
+                    Date time1= null;
+                    try {
+                        date = new SimpleDateFormat("yyyy-MM-dd").parse(localDate.toString());
+                        time1 = new SimpleDateFormat("HH:mm").parse(t);
+
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(time1);
+                    System.out.println(course.getStartTime());
+                    if(date.before(course.getDate()))
+                        activeCourses.add(CourseMapper.entityToDto(course));
+                    else if(date.equals(course.getDate()) &&time1.before(course.getStartTime()))
+                        activeCourses.add(CourseMapper.entityToDto(course));
+
                 }
             });
             InstructorDto instructorDto = UserMapper.<InstructorDto>entityToDto(instructor,new InstructorDto());
