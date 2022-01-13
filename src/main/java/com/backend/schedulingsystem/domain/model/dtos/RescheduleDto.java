@@ -13,10 +13,10 @@ public class RescheduleDto {
             (pattern = "yyyy-MM-dd",timezone ="Turkey")
     Date date;
     @JsonFormat
-            (pattern = "HH:mm",timezone ="Turkey")
+            (pattern = "HH:mm",timezone ="GMT+3")
     Date startTime;
     @JsonFormat
-            (pattern = "HH:mm",timezone ="Turkey")
+            (pattern = "HH:mm",timezone ="GMT+3")
     Date endTime;
 
     CourseDto requestedCourse;

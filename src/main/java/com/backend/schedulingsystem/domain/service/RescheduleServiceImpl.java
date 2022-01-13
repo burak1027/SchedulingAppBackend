@@ -36,7 +36,7 @@ public class RescheduleServiceImpl implements RescheduleService{
         if(course.getCoursesTaken()==null){
             course.setStartTime(rescheduleDto.getStartTime());
             course.setEndTime(rescheduleDto.getEndTime());
-            course.setDate(course.getDate());
+            course.setDate(rescheduleDto.getDate());
             courseRepository.save(course);
 
             return "Course rescheduled";

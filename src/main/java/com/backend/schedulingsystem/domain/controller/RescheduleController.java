@@ -36,6 +36,11 @@ public class RescheduleController {
         rescheduleDto.setStartTime(new SimpleDateFormat("HH:mm").parse(time1));
         rescheduleDto.setEndTime(new SimpleDateFormat("HH:mm").parse(time2));
 //        UserDto userDto = UserMapper.<UserDto>entityToDto(userRepository.findUserByEmail(email), new UserDto());
+
+        if(rescheduleDto.getStartTime().after(rescheduleDto.getEndTime()))
+            return "check times";
+
+
         UserDto userDto = new UserDto();
         userDto.setEmail(email);
         CourseDto courseDto = new CourseDto();
