@@ -56,13 +56,7 @@ public class JwtUtil {
     }
 
 
-//    public List<GrantedAuthority> getRoles(String token) {
-//        List<Map<String, String>>  roleClaims = Jwts.parser().setSigningKey(secretKey)
-//                .parseClaimsJws(token).getBody().get(ROLES_KEY, List.class);
-//        return roleClaims.stream().map(roleClaim ->
-//                new SimpleGrantedAuthority(roleClaim.get("authority")))
-//                .collect(Collectors.toList());
-//    }
+
     public GrantedAuthority getRoles(String token) {
         String roleClaims = Jwts.parser().setSigningKey(secretKey)
                 .parseClaimsJws(token).getBody().get(ROLES_KEY, String.class);
